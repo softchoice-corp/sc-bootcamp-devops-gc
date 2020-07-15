@@ -22,6 +22,8 @@ To use Google Cloud you need access to a Google Account
 
 - You can create a Google Account and sign up for your free trial [here](https://console.cloud.google.com/freetrial)
 
+- In Chrome, right click the link and select "Open link in incognito window"
+
 Additional Google Cloud Information:
 
 - Recommend using Google Cloud in "Incognito mode" in Chrome
