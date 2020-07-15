@@ -20,7 +20,7 @@ Additional GitHub Information:
 
 To use Google Cloud you need access to a Google Account
 
-- You can create a fre Google Account [here](https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp&nogm=true)
+- You can create a Google Account and sign up for your free trial [here](console.cloud.google.com/freetrial)
 
 Additional Google Cloud Information:
 
