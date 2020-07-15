@@ -20,7 +20,7 @@ Additional GitHub Information:
 
 To use Google Cloud you need access to a Google Account
 
-- You can create a Google Account and sign up for your free trial [here](console.cloud.google.com/freetrial)
+- You can create a Google Account and sign up for your free trial [here](https://console.cloud.google.com/freetrial)
 
 Additional Google Cloud Information:
 
