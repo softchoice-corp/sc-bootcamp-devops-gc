@@ -1,1 +1,1 @@
-This file can be modified to trigger a build on Cloud Build
+This file can be modified to trigger a build on Google Cloud Build
