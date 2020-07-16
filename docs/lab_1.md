@@ -1,7 +1,8 @@
 # Lab 1 - Connectivity
 
 - [Create Repo from Template](#Create-Repo-From-Template)
-- [Create Azure Service Principal](#Create-Azure-Service-Principal)
+- [Create Project on Google Cloud](#Create-Google-Cloud-Project)
+- [Create Cloud Build GitHub App triggers](#Create-Cloud-Build-GitHub-App-triggers)
 - [Create GitHub Credential Variable](#Create-GitHub-Credential-Variable)
 - [Configure GitHub Actions](#Configure-GitHub-Actions)
 - [Run GitHub Actions](#Run-GitHub-Actions)
@@ -10,79 +11,47 @@
 
 ## Create Repo From Template
 
-1. Access the source repo url: [https://github.com/softchoice-corp/DevOpsBootcamp](https://github.com/softchoice-corp/DevOpsBootcamp)
+1. Access the source repo url: [https://github.com/softchoice-corp/sc-gc-devops-bootcamp](https://github.com/softchoice-corp/sc-gc-devops-bootcamp)
 
 2. Click the green **Use this template** button. This will copy all of the content from the source repo into a new repo under your GitHub account.
 
 3. Provide a new repository name and description. The repo can be left as `Public`, and leave the `Include all branches` option unselected. Click the green **Create repository from template** button.
 
-4. Once the repository creation is completed you should see that your new repo is in your account, and was generated from _softchoice-corp/DevOpsBootcamp_.
+4. Once the repository creation is completed you should see that your new repo is in your account, and was generated from _softchoice-corp/sc-gc-devops-bootcamp_.
 
 > ![lab_1_template_01](images/lab_1_template_01.gif)
 
 ---
 
-## Create Azure Service Principal
+## Create Google Cloud Project
 
-We need to create a service principal in Azure that GitHub Actions will use to authenticate and deploy resources. This service principal is similar to a traditional service account. The clientId or appId represent the username, the clientSecret represents the password, and the tenantId/subscriptionId represent the domain. When creating a new service principal all of these values are guids.
+A project in Google Cloud is an isolated container for all your work and cloud resources. Use an existing project or create a brand new one (recommended) for your work related to this bootcamp. Deleting a project will also delete all resources created within that project.
 
-1. Open the Azure Portal using [https://portal.azure.com](https://portal.azure.com).
+To create a new Project:
 
-2. Access Cloud Shell from the Azure Portal by clicking the icon in the upper right toolbar.
+1. Click the Project Selector drop down at the top of your Cloud Console
 
-> Note: If this is the first time you have used Azure Cloud Shell you will be prompted to create a storage account to enable Cloud Shell.
+> ![lab1-project-selector](images/lab1-project-selector.png)
 
-> ![lab_1_cloudshell_01](images/lab_1_cloudshell_01.gif)
+2. Select New Project
 
-3. Use Azure CLI to create a new service principal for use with GitHub Actions. Az Cli is installed in both PowerShell and Bash within Azure Cloud Shell.
+> ![lab1-new-project](images/lab1-new-project.png)
 
-```python
-az ad sp create-for-rbac --name GitHubActions
-```
+3. Enter project details and push Create
 
-Azure will generate a strong password for the service principal and return it in Cloud Shell. We need to capture this information for use in our GitHub secret storage. Example Azure Cloud Shell service principal response:
-
-> ![sp_01](images/sp_01.png)
-
-4. When creating the new service principal the Subscription Id is not a value that is returned, but we will need it for our connection later. Run the following command to display the Subscription Id.
-
-```python
-az account show --query "id"
-```
-
-## Create GitHub Credential Variable
+> ![lab1-new-project-details](images/lab1-new-project-details.png)
 
 ---
 
-We need to provide our GitHub repo the service principal credentials we just created in our Azure subscription. GitHub will need the credentials supplied in a specifically formatted block of JSON. Copy this example into a text editor like Notepad. Then we will substitute our actual values for the service principal before saving it in GitHub.
+## Create Cloud Build GitHub App triggers
 
-1. Open Notepad and paste the following JSON code block:
+The Cloud Build GitHub App triggers enable you to automatically invoke builds on Git pushes and pull requests, and view your build results on GitHub and Google Cloud Console. Additionally, GitHub App triggers support all the features supported by the existing GitHub triggers and use the Cloud Build GitHub app to configure and authenticate to GitHub.
 
-```json
-{
-  "clientId": "GUID",
-  "clientSecret": "GUID",
-  "subscriptionId": "GUID",
-  "tenantId": "GUID"
-}
-```
+This [page](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers) explains how to install the Cloud Build GitHub App to connect your GitHub repository to your Google Cloud project and then create GitHub App triggers.
 
-2. For each property replace _"GUID"_ with the actual guid for the Azure Service Principal. You may notice that property names that GitHub requires do not exactly match the property names that Azure outputed when we created the service principal. This is expected, use the table below to map the property name required by GitHub to the Azure CLI property name that was outputted when the service principal was created.
-
-| GitHub Property Name | Where do I get it?                           | Az CLI Property Name       |
-| -------------------- | -------------------------------------------- | -------------------------- |
-| `clientId`           | Output from Azure Service Principal creation | `appId`                    |
-| `clientSecret`       | Output from Azure Service Principal creation | `password`                 |
-| `subscriptionId`     | Output from `az account show --query "id"`   | guid is only data returned |
-| `tenantId`           | Output from Azure Service Principal creation | `tenant`                   |
-
-3. In your GitHub Repo navigate to **Settings** > **Secrets**, and click **Add a new Secret**. Name the secret `AZURE_CREDENTIALS`, paste your JSON object in the Value, and click Add Secret. ![secret_01](images/secret_01.png)
-
-> Note: Once you add the secret you cannot retrieve the values in clear text from GitHub.
+---
 
 ## Configure GitHub Actions
-
----
 
 1. It your GitHub repo navigate to **Code**, then browse to the `workflow-templates` directory and open the `lab_1_connectivity.yml` file and copy all of the text.
 

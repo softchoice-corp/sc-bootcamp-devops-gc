@@ -26,6 +26,8 @@ To use Google Cloud you need access to a Google Account
 
 Additional Google Cloud Information:
 
+- [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier)
+
 - Recommend using Google Cloud in "Incognito mode" in Chrome
 
 - Recommend creating a new Gmail account for this bootcamp
