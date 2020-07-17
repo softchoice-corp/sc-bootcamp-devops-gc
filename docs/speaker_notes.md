@@ -2,10 +2,9 @@
 
 ## Lab 1
 
-- Review GitHub UI Navigation (Code, Actions, Settings)
-- Review Azure Portal UI Navigation (Cloud Shell)
+- Review GitHub UI Navigation (Code, Settings)
+- Review Google Cloud console (Cloud Build)
 - Create Repo from Template (work from your repo, all files including docs, dont need Softchoice repo afterwards)
-- Review Service Principal (what it is, like a service account)
 
 ## Lab 2
 
