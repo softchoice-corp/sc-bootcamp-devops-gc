@@ -1,0 +1,5 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args: ['gcloud', 'config', 'get-value', 'project']
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args: ['gcloud', 'config', 'list', 'account']
