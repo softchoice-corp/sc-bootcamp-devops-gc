@@ -1,7 +1,7 @@
 # Basic TCP Forwarding Rule Example
 The example creates a managed instance group with 2 instances in the same region and a network TCP Load Balancer.
 
-![Load Balancer Diagram](./docs/diagram.png "Load Balancer Diagram")
+![Load Balancer Diagram](./diagram.png "Load Balancer Diagram")
 
 To provision this example, run the following from this directory or using Cloud Shell.
 
