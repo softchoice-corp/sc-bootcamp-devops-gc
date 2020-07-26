@@ -3,8 +3,8 @@ steps:
   name: 'alpine'
   entrypoint: 'sh'  
   args: 
-  - '-c'
-  - | 
+    - '-c'
+    - | 
       echo "***********************"
       echo "$BRANCH_NAME"
       echo "***********************"
@@ -13,8 +13,8 @@ steps:
   name: 'hashicorp/terraform:0.12.0'
   entrypoint: 'sh'
   args: 
-  - '-c'
-  - |
+    - '-c'
+    - |
       cd lab_2
       terraform init
 
@@ -23,19 +23,23 @@ steps:
   name: 'hashicorp/terraform:0.12.0'
   entrypoint: 'sh'
   args: 
-  - '-c'
-  - | 
+    - '-c'
+    - | 
       cd lab_2
       terraform plan
+  env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
 # [END tf-plan]
 
 # [START tf-apply]
 - id: 'tf apply'
-  name: 'hashicorp/terraform:0.11.14'
+  name: 'hashicorp/terraform:0.12.0'
   entrypoint: 'sh'
   args: 
-  - '-c'
-  - | 
+    - '-c'
+    - | 
       cd lab_2
       terraform apply -auto-approve
+  env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
 # [END tf-apply]      
