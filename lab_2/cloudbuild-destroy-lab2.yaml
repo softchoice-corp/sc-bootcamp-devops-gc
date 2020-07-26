@@ -9,7 +9,7 @@ steps:
       terraform init
 
 # [START tf-destroy]
-- id: 'tf apply'
+- id: 'tf destroy'
   name: 'hashicorp/terraform:0.12.0'
   entrypoint: 'sh'
   args: 
