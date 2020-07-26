@@ -1,19 +1,14 @@
 steps:
-- name: gcr.io/$PROJECT_ID/terraform
-  args:
-  - init
-  - -input=false
-- name: gcr.io/$PROJECT_ID/terraform
-  args:
-  - validate
-- name: gcr.io/$PROJECT_ID/terraform
-  args:
-  - plan
-  - -input=false
-  - -out=tfplan
-- name: gcr.io/$PROJECT_ID/terraform
-  args:
-  - apply
-  - -auto-approve
-  - -input=false
-  - tfplan
+
+# setup Terraform using public terraform Docker image
+- id: terraform-init
+  name: hashicorp/terraform:0.12.0
+  args: ['init']
+
+
+# deploy the required GCP resources
+- id: terraform-apply
+  name: hashicorp/terraform:0.12.0
+  args: ['apply', '-auto-approve']
+  env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
