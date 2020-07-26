@@ -45,7 +45,7 @@ module "managed_instance_group" {
   version                   = "~> 1.0.0"
   region                    = var.region
   distribution_policy_zones = var.distribution_policy_zones
-  target_size               = 2
+  target_size               = 4
   hostname                  = "mig-simple"
   instance_template         = module.instance_template.self_link
 
