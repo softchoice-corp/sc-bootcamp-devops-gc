@@ -64,7 +64,7 @@ The Cloud Build GitHub App triggers enable you to automatically invoke builds on
 2. Enter a name (E.g., `lab1-trigger`) and description (E.g., `trigger for lab 1`) for your trigger.
 3. Under Event, select Push to a new branch.
 4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
-5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_1/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_1` folder should trigger a build.
+5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_1/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_1/` folder should trigger a build.
 6. Enter `lab_1/cloudbuild-lab1.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
 7. Click Create to finish creating the trigger on Cloud Build.
 
