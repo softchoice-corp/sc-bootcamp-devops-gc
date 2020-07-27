@@ -18,6 +18,7 @@ steps:
       cd lab_4
       terraform plan
   env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
     - 'TF_VAR_node_count=5'
 # [END tf-plan]
 
@@ -31,5 +32,6 @@ steps:
       cd lab_4
       terraform apply -auto-approve
   env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
     - 'TF_VAR_node_count=5'
 # [END tf-apply]      
