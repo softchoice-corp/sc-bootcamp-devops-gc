@@ -45,7 +45,7 @@ By default, Terraform stores state locally in a file named terraform.tfstate. Th
 
 1. Start Cloud Shell
 
-> ![lab_2_cloud_shell](images/lab_2_cloud_shell.jpg)
+> ![lab_2_cloud_shell](images/lab2-cloud-shell.jpg)
 
 2. In Cloud Shell, create the Cloud Storage bucket
 
