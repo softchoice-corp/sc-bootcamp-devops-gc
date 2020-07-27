@@ -70,7 +70,7 @@ The Cloud Build GitHub App triggers enable you to automatically invoke builds on
 
 > ![lab1-cloud-build-create-trigger](images/lab1-cloud-build-create-trigger.gif)
 
-8. In GitHub, navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build. As you see the current account that is executing the build is not the user that is logged in, but the default created Cloud Buld service account.
+8. In GitHub, navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build. As you see the current account that is executing the build is not the user that is logged in, but the default created Cloud Build service account.
 
 ```yaml
 steps:
