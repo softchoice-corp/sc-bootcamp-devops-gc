@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "master-smithy-283514-tfstate"
+    bucket = "sc-gc-devops-bootcamp-tfstate"
     prefix = "terraform/bootstrap/state"
   }
 }
