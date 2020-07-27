@@ -32,11 +32,11 @@ To create a new Project:
 
 > ![lab1-project-selector](images/lab1-project-selector.png)
 
-2. Select New Project
+2. Click New Project
 
 > ![lab1-new-project](images/lab1-new-project.png)
 
-3. Enter project details and push Create
+3. Enter project details and click Create
 
 > ![lab1-new-project-details](images/lab1-new-project-details.png)
 
@@ -46,11 +46,11 @@ To create a new Project:
 
 ## Enable Cloud Build and Install GitHub App
 
-1. Navigate to Cloud Build via the hamburger menu as shown below, and 'Enable API'
+1. Navigate to Cloud Build via the hamburger menu as shown below, and click 'Enable'
 
 > ![lab1-cloud-build](images/lab1-cloud-build.png)
 
-2. The Cloud Build GitHub App connects your GitHub repository to your Google Cloud project. Follow the directions on this [page](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers) to install the Cloud Build GitHub App.
+2. The Cloud Build GitHub App connects your GitHub repository to your Google Cloud project. Follow the directions on this [page](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers#installing_the_cloud_build_app) to install the Cloud Build GitHub App.
 
 ---
 
@@ -96,7 +96,7 @@ steps:
 
 The workflow we just created is triggered by changes made to the files in the `lab_1/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to any branch will instruct Cloud Build to trigger a build.
 
-1. Navigate to **Code**, and browse to the `lab_1/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
+1. Navigate to **Code** in GitHub, and browse to the `lab_1/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
 2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab1-trigger name.
 
