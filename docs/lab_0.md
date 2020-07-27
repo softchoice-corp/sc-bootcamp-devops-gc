@@ -1,6 +1,12 @@
 # Lab 0 - Access to Google Cloud and GitHub
 
-In order to successfully complete the remaining labs you need a Google Cloud account and a GitHub account. Both are available at no cost.
+- [GitHub](#GitHub)
+- [Google Cloud](#Google-Cloud)
+- [Frequently Asked Questions](#Frequently-Asked-Questions)
+
+---
+
+In order to successfully complete the remaining labs, you need a Google Cloud account and a GitHub account. Both are available at no cost.
 
 ## GitHub
 
