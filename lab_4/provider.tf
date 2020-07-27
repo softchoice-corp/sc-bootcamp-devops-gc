@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-variable project_id {
-  description = "GCP Project used to create resources."
+provider "google" {
+  version = ">= 2.7.0"
+  project = var.project_id
 }
 
-variable region {
-  default = "us-central1"
-}
-
-variable "node_count" {
-    default = "3"
-}
-
-variable "machine_type" {
-    default = "n1-standard-1"
-}
-
-variable zone {
-    default = "us-central1-a"
-}
-
-variable image {
-    default = "debian-cloud/debian-9"
+provider "google-beta" {
+  version = ">= 2.7.0"
+  project = var.project_id
 }
