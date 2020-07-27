@@ -21,7 +21,7 @@ To allow Cloud Build service account to run Terraform scripts with the goal of m
 
 1. Start Cloud Shell
 
-> ![lab_2_cloud_shell](images/lab_2_cloud_shell.jpg)
+> ![lab_2_cloud_shell](images/lab2-cloud-shell.jpg)
 
 2. In Cloud Shell, retrieve the email for your project's Cloud Build service account
 
