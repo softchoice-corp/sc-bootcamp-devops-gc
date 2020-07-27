@@ -12,7 +12,7 @@ In order to successfully complete the remaining labs, you need a Google Cloud ac
 
 ---
 
-Sign up for a GitHub Account: [https://github.com/join](https://github.com/join)
+Sign up for a GitHub Account: [https://github.com/join](https://github.com/join).
 
 Additional GitHub Information:
 
@@ -24,19 +24,19 @@ Additional GitHub Information:
 
 ---
 
-To use Google Cloud you need access to a Google Account
+To use Google Cloud you need access to a Google Account.
 
-- You can create a Google Account and sign up for your free trial [here](https://console.cloud.google.com/freetrial)
+- You can create a Google Account and sign up for your free trial [here](https://console.cloud.google.com/freetrial).
 
-- In Chrome, right click the link and select "Open link in incognito window"
+- In Chrome, right click the link and select "Open link in incognito window".
 
 Additional Google Cloud Information:
 
-- [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier)
+- [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier).
 
-- Recommend using Google Cloud in "Incognito mode" in Chrome
+- Recommend using Google Cloud in "Incognito mode" in Chrome.
 
-- Recommend creating a new Gmail account for this bootcamp
+- Recommend creating a new Gmail account for this bootcamp.
 
 ---
 

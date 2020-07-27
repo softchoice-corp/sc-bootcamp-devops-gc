@@ -10,7 +10,7 @@
 
 ## Create Repo From Template
 
-1. Access the source repo url: [https://github.com/softchoice-corp/sc-gc-devops-bootcamp](https://github.com/softchoice-corp/sc-gc-devops-bootcamp)
+1. Access the source repo url: [https://github.com/softchoice-corp/sc-gc-devops-bootcamp](https://github.com/softchoice-corp/sc-gc-devops-bootcamp).
 
 2. Click the green **Use this template** button. This will copy all of the content from the source repo into a new repo under your GitHub account.
 
@@ -18,71 +18,61 @@
 
 4. Once the repository creation is completed you should see that your new repo is in your account, and was generated from _softchoice-corp/sc-gc-devops-bootcamp_.
 
-> ![lab_1_template_01](images/lab_1_template_01.gif)
+> ![lab_1_template_01](images/lab1-github-repo-tepmplate.gif)
 
 ---
 
 ## Create Google Cloud Project
 
-A project in Google Cloud is an isolated container for all your work and cloud resources. Use an existing project or create a brand new one (recommended) for your work related to this bootcamp. Deleting a project will also delete all resources created within that project.
+A project in Google Cloud is an isolated container for all your work and cloud resources. Create a new project for your work related to this bootcamp. Deleting a project will also delete all resources created within that project.
 
 To create a new Project:
 
-1. Click the Project Selector drop down at the top of your Cloud Console
+1. Click the Project Selector drop down at the top of your Cloud Console.
 
 > ![lab1-project-selector](images/lab1-project-selector.png)
 
-2. Click New Project
+2. Click New Project.
 
 > ![lab1-new-project](images/lab1-new-project.png)
 
-3. Enter project details and click Create
+3. Enter project details and click Create.
 
 > ![lab1-new-project-details](images/lab1-new-project-details.png)
 
-4. Ensure the project you just created is selected on the Project Selector drop down
+4. Ensure the project you just created is selected on the Project Selector drop-down.
 
 ---
 
 ## Enable Cloud Build and Install GitHub App
 
-1. Navigate to Cloud Build via the hamburger menu as shown below, and click 'Enable'
+1. Navigate to Cloud Build via the hamburger menu as shown below, and click 'Enable'.
 
-> ![lab1-cloud-build](images/lab1-cloud-build.png)
+> ![lab1-cloud-build-enable](images/lab1-cloud-build-enable.gif)
 
-2. The Cloud Build GitHub App connects your GitHub repository to your Google Cloud project. Follow the directions on this [page](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers#installing_the_cloud_build_app) to install the Cloud Build GitHub App.
+2. The Cloud Build GitHub App connects your GitHub repository to your Google Cloud project. Follow the directions on this [page](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers#installing_the_cloud_build_app) (under the Installing the Cloud Build app section) to install the Cloud Build GitHub App.
+
+> ![lab1-cloud-build-connect-repo](images/lab1-cloud-build-connect-repo.gif)
 
 ---
 
 ## Configure GitHub App Triggers
 
-The Cloud Build GitHub App triggers enable you to automatically invoke builds on Git pushes and pull requests, and view your build results on GitHub and Google Cloud Console.
+The Cloud Build GitHub App triggers enable you to automatically invoke builds on Git pushes and pull requests, and view your build results on GitHub and [Google Cloud Console](https://console.cloud.google.com/).
 
-1. Open the **Triggers** page in the Google Cloud Console and click **Create Trigger**
+1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
+2. Enter a name (E.g., `lab1-trigger`) and description (E.g., `trigger for lab 1`) for your trigger.
+3. Under Event, select Push to a new branch.
+4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
+5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_1/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_1` folder should trigger a build.
+6. Enter `lab_1/cloudbuild-lab1.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
+7. Click Create to finish creating the trigger on Cloud Build.
 
-> ![lab1-create-trigger](images/lab1-create-trigger.png)
+> ![lab1-cloud-build-create-trigger](images/lab1-cloud-build-create-trigger.gif)
 
-2. Enter a name and description for your trigger. Then select the repository Event to invoke your trigger. Here we will set the trigger to start a build on commits that contain a particular tag.
+8. In GitHub, navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build. As you see the current account that is executing the build is not the user that is logged in, but the default created Cloud Buld service account.
 
-> ![lab1-create-trigger-event](images/lab1-create-trigger-event.png)
-
-3. Select your copy of the sc-gc-devops-bootcamp repository as the Source and we will specify a regular expression that indicates that pushes to any branch in the repository will trigger a build.
-
-> ![lab1-create-trigger-source](images/lab1-create-trigger-source.png)
-
-4. Expand the 'Show Included and Ignored File Filters' section and enter the details below to indicate that only changes under the lab_1 folder should trigger a build.
-
-> ![lab1-create-trigger-includedfiles](images/lab1-create-trigger-includedfiles.png)
-
-5. Select the `cloudbuild-lab1.yaml` Cloud Build configuration file under the lab_1 folder. This configuration file defines the build steps that will be performed when a build is triggered.
-
-> ![lab1-create-trigger-buildconfig](images/lab1-create-trigger-buildconfig.png)
-
-6. Click Create to finish creating the trigger on Cloud Build
-
-7. Navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build. As you see the current account that is executing the build is not the user that is logged in, but the default created Cloud Buld service account.
-
-```
+```yaml
 steps:
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args: ['gcloud', 'config', 'get-value', 'project']
@@ -98,9 +88,19 @@ The workflow we just created is triggered by changes made to the files in the `l
 
 1. Navigate to **Code** in GitHub, and browse to the `lab_1/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
+> ![lab1-github-readme-commit](images/lab1-github-readme-commit.gif)
+
 2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab1-trigger name.
 
+> ![lab1-cloud-build-history](images/lab1-cloud-build-history.png)
+
 3. Click the build id and you can explore the results of this execution. You will see the results of executing the build steps within the window.
+
+> ![lab1-cloud-build-execution](images/lab1-cloud-build-execution.png)
+
+4. Ensure that the build is successful in the execution results.
+
+> ![lab1-cloud-build-execution-success](images/lab1-cloud-build-execution-success.png)
 
 ---
 
