@@ -5,7 +5,7 @@ steps:
   args: 
     - '-c'
     - |
-      cd lab_3
+      cd lab_4
       terraform init
 
 # [START tf-plan]
@@ -15,7 +15,7 @@ steps:
   args: 
     - '-c'
     - | 
-      cd lab_3
+      cd lab_4
       terraform plan
   env:
     - 'TF_VAR_node_count=5'
@@ -28,7 +28,7 @@ steps:
   args: 
     - '-c'
     - | 
-      cd lab_3
+      cd lab_4
       terraform apply -auto-approve
   env:
     - 'TF_VAR_node_count=5'
