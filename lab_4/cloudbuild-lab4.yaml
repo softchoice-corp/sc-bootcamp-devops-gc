@@ -19,7 +19,7 @@ steps:
       terraform plan
   env:
     - 'TF_VAR_project_id=$PROJECT_ID'
-    - 'TF_VAR_node_count=5'
+    - 'TF_VAR_node_count=$_NODE_COUNT'
 # [END tf-plan]
 
 # [START tf-apply]
@@ -33,5 +33,5 @@ steps:
       terraform apply -auto-approve
   env:
     - 'TF_VAR_project_id=$PROJECT_ID'
-    - 'TF_VAR_node_count=5'
+    - 'TF_VAR_node_count=$_NODE_COUNT'
 # [END tf-apply]      
