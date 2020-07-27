@@ -4,7 +4,7 @@
 - [Create Project on Google Cloud](#Create-Google-Cloud-Project)
 - [Enable Cloud Build and Install GitHub App](#Enable-Cloud-Build-and-Install-GitHub-App)
 - [Configure GitHub App Triggers](#Configure-GitHub-App-Triggers)
-- [Run GitHub Actions](#Run-GitHub-Actions)
+- [Run Cloud Build](#Run-Cloud-Build)
 
 ---
 
@@ -80,7 +80,7 @@ The Cloud Build GitHub App triggers enable you to automatically invoke builds on
 
 6. Click Create to finish creating the trigger on Cloud Build
 
-7. Navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build.
+7. Navigate to the `lab_1/cloudbuild-lab1.yaml` and we can examine what the Cloud Build config will actually do. We can see that it executes the Cloud SDK builder to run gcloud and get the current project in the first step and the second step retrieves the current account that is executing the build. As you see the current account that is executing the build is not the user that is logged in, but the default created Cloud Buld service account.
 
 ```
 steps:
@@ -90,7 +90,9 @@ steps:
     args: ['gcloud', 'config', 'list', 'account']
 ```
 
-## Run GitHub Actions
+---
+
+## Run Cloud Build
 
 The workflow we just created is triggered by changes made to the files in the `lab_1/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to any branch will instruct Cloud Build to trigger a build.
 

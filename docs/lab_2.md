@@ -1,97 +1,110 @@
 # Lab 2 - IaaS
 
-- [Configure GitHub Actions](#Configure-GitHub-Actions)
-- [Run GitHub Actions](#Run-GitHub-Actions)
+- [Update Cloud Build service account permissions](#Update-Cloud-Build-service-account-permissions)
+- [Create Cloud Storage bucket for Terraform state](#Create-Cloud-Storage-bucket-for-Terraform-state)
+- [Configure GitHub App Triggers](#Configure-GitHub-App-Triggers)
+- [Run Cloud Build](#Run-Cloud-Build)
 - [Scale Out Resources](#Scale-Out-Resources)
 - [Clean Up Resources](#Clean-Up-Resources)
-- [Optional Scale Up Resources](#Optional-Scale-Up-Resources)
 
 ---
 
 ## Overview
 
-The second lab will deploy IaaS components consisting of Virtual Networking, Virtual Machines, Load Balancer using an Azure Resource Manager Template via a GitHub Actions CI/CD pipeline.
-
-> Note: Lab 2 uses the same service principal credential we created in Lab 1.
+The second lab will deploy IaaS components consisting of a Virtual Private Cloud (VPC), Virtual Machines, Load Balancer using Terraform scripts via Cloud Build.
 
 ---
 
-## Configure GitHub Actions
+## Update Cloud Build service account permissions
 
-1. In GitHub Navigate to the **Code** tab, browse to the `workflow-templates` directory, and open the `lab_2_iaas.yml` file and copy all of the text.
+To allow Cloud Build service account to run Terraform scripts with the goal of managing Google Cloud resources, you need to grant it appropriate access to your project. For simplicity, project editor access is granted here. But when the project editor role has a wide-range permission, in production environments you must follow your company's IT security best practices, usually providing least-privileged access.
 
-> ![lab_2_workflow_09](images/lab_2_workflow_09.gif)
+1. Start Cloud Shell
 
-2. Navigate to **Actions** and click **New workflow**. If prompted to start with a sample workflow click the `Set up a workflow yourself` button in the top right.
+> ![lab_2_cloud_shell](images/lab_2_cloud_shell.jpg)
 
-3. Replace all of the sample workflow code in the editor by pasting all the code you copied from `workflow-templates/lab_2_iaas.yml`.
+2. In Cloud Shell, retrieve the email for your project's Cloud Build service account
 
-4. In this workflow we are using Environmental Variables to define the name of the Azure Resource Group to be created, and the Azure Region to deploy the resources in. Modify this section of the file to specify different values if desired.
-
-```yaml
-env:
-  RG_NAME: rg-lab-2
-  LOCATION: eastus2
+```
+CLOUDBUILD_SA="$(gcloud projects describe $PROJECT_ID \
+    --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
 ```
 
-> Note: If changing the `LOCATION` variable, ensure that you use the proper Azure Region name. You can list the available regions for your subscription by running this command `az account list-locations -o table` in Azure Cloud Shell.
+3. Grant the required access to your Cloud Build service account
 
-5. GitHub Actions files must be saved in a directory in your repo named `.github/workflows/`. The directory structure `.github/workflows/` should already exist in the path, name your workflow file `lab_2_iaas.yml` and click `Start Commit`.
-
-6. Add a short commit message and click `Commit new file`
+```
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member serviceAccount:$CLOUDBUILD_SA --role roles/editor
+```
 
 ---
 
-## Run GitHub Actions
+## Create Cloud Storage bucket for Terraform state
+
+By default, Terraform stores state locally in a file named terraform.tfstate. This default configuration can make Terraform usage difficult for teams, especially when many users run Terraform at the same time and each machine has its own understanding of the current infrastructure. To help you avoid such issues, this section configures a remote state that points to a Cloud Storage bucket. Remote state is a feature of backends and, in this bootcamp, is configured in the backend.tf files.
+
+1. Start Cloud Shell
+
+> ![lab_2_cloud_shell](images/lab_2_cloud_shell.jpg)
+
+2. In Cloud Shell, create the Cloud Storage bucket
+
+```
+PROJECT_ID=$(gcloud config get-value project)
+gsutil mb gs://${PROJECT_ID}-tfstate
+```
+
+3. Enable Object Versioning to keep the history of your deployments
+
+```
+gsutil versioning set on gs://${PROJECT_ID}-tfstate
+```
+
+4. Replace the PROJECT_ID placeholder with the project ID in the backend.tf
+
+---
+
+## Configure GitHub App Triggers
+
+We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project.
+
+1. Open the **Triggers** page in the Google Cloud Console and click **Create Trigger**
+
+> ![lab2-create-trigger](images/lab2-create-trigger.png)
+
+2. Similar to Lab 1, enter a name and description for your trigger. Then select your copy of the sc-gc-devops-bootcamp repository as the Source and indicate that pushes to any branch will trigger a build.
+
+3. Expand the 'Show Included and Ignored File Filters' section and enter the details below to indicate that only changes under the lab_1 folder should trigger a build.
+
+> ![lab2-create-trigger-includedfiles](images/lab2-create-trigger-includedfiles.jpg)
+
+5. Select the `cloudbuild-lab2.yaml` Cloud Build configuration file under the lab_2 folder
+
+> ![lab2-create-trigger-buildconfig](images/lab2-create-trigger-buildconfig.jpg)
+
+6. Click Create to finish creating the trigger on Cloud Build
+
+---
+
+## Run Cloud Build
 
 The workflow we just created is triggered by changes made to the files in the `lab_2/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
 
 1. Navigate to **Code**, and browse to the `lab_2/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
-2. Navigate to **Actions** and you should see your `Lab_2_IaaS` workflow executing.
+2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab2-trigger name.
 
-The workflow for Lab 2 is going to take a few minutes to execute. While it is running let's take a look at the differences in the `lab_2_iaas.yml` file:
+The workflow for Lab 2 is going to take a few minutes to execute. While it is running take a look at the terraform files and try to infer what resources will be deployed.
 
-The `on:` and `name:` sections are very similar to our Lab 1 workflow. The workflow is initiated by a change to any file in the `lab_2/` directory.
+The terraform files defines several Google Cloud resources to deploy:
 
-The `env:` section defines two environment variables. These are two variables that will be referenced later in our workflow, defining the name of the resource group and Azure region to use.
-
-```yaml
-env:
-  RG_NAME: rg-lab-2
-  LOCATION: eastus2
-```
-
-The `jobs:` section is also similar to our Lab 1 workflow, but we're using the `azure/CLI@v1` Action to run two Azure CLI commands as inline scripts. These are used to create the Azure Resource Group, and then perform and Azure Resource Manager deployment into that Resource Group using the ARM Template `lab_2/iaas.deploy.json`.
-
-```yaml
-- name: Create Resource Group
-    uses: azure/CLI@v1
-    with:
-      inlineScript: |
-        az group create --name $RG_NAME --location $LOCATION
-
-- name: Deploy ARM Template
-    uses: azure/CLI@v1
-    with:
-      inlineScript: |
-        az deployment group create --resource-group $RG_NAME --template-file lab_2/iaas.deploy.json
-```
-
-The ARM template file defines several Azure resources to deploy:
-
-- Virtual Network with two subnets
-- Two Ubuntu Linux virtual machines
-- Availability Set
-- Network Security Group with rule for allowing port 80 inbound
-- Public Ip Address
-- Load Balancer configured with listener, routing rule, and backend server pool populated with Linux vm's
+- Virtual Network with one subnet
+- Managed instance group with two instances in the same region
+- Network TCP load balancer
 
 > ![lab_2_diagram](images/lab_2_diagram.png)
 
-3. Once the workflow has completed you can access the Azure Portal ([https://portal.azure.com](https://portal.azure.com)) and view the resources the workflow created. In the Azure Portal click the top left &#9776; hamburger menu, click **Resource Groups**, and select `rg-lab-2`.
-
-> ![lab_2_workflow_04](images/lab_2_workflow_04.gif)
+3. Once the workflow has completed you can access the Google Cloud console and view the resources the workflow created. In the Google Cloud console click the top left &#9776; hamburger menu, navigate to Compute Engine to view the running instances. Navigate to VPC Network -> VPC Networks to see the VPCs created. Navigating to Network Services -> Load Balancing will display the load balancers created.
 
 ---
 
@@ -99,45 +112,27 @@ The ARM template file defines several Azure resources to deploy:
 
 Let's scale out the solution from 2 virtual machines to 4.
 
-1. Navigate to **Code** and browse to the `lab_2/iaas.deploy.json` file.
+1. Navigate to **Code** and browse to the `lab_2/main.tf` file.
 
-2. Click the pencil icon to edit the file. The first parameter; `webServerNames` is an array containing multiple server names. The ARM template contains logic that will loop through this array and create a virtual machine, nic, and disk for each server name specified. Add `vm-wdgt-dev-3` and `vm-wdgt-dev-4` to the list of server names.
-
-```json
-"webServerNames": {
-    "type": "array",
-    "defaultValue": [
-        "vm-wdgt-dev-1",
-        "vm-wdgt-dev-2",
-        "vm-wdgt-dev-3",
-        "vm-wdgt-dev-4"
-    ]
-},
-```
+2. Click the pencil icon to edit the file. In the `managed_instance_group` module, change the `target_size` from 2 to 4.
 
 3. Enter a commit message and click `Commit changes`
 
-> ![lab_2_workflow_06](images/lab_2_workflow_06.png)
+4. Navigate to **Cloud Build -> History** and you should see your build executing.
 
-4. Navigate to **Actions** and you should see your workflow executing.
-
-> ![lab_2_workflow_07](images/lab_2_workflow_07.png)
-
-5. Once the workflow is completed we can open the Azure Portal and confirm there are now four virtual machines deployed. We can also check the Load Balancer and see that all 4 are already configured in the backend server pool.
-
-> ![lab_2_workflow_08](images/lab_2_workflow_08.png)
+5. Once the build is completed we can open the Google Cloud Console and confirm there are now four virtual machines deployed. We can also check the Load Balancer and see that all 4 are already configured in the backend server pool.
 
 ---
 
 ## Clean Up Resources
 
-To mimimize billing usage in your subscription we can remove all of the resources we deployed with GitHub Actions by deleting the Resource Group they are held in. From Azure Cloud Shell run the following command:
+To mimimize billing usage in your subscription we can remove all of the resources we deployed with Cloud Build by executing a Terraform destroy.
 
-```python
-az group delete --name rg-lab-2
-```
+1. Create a new trigger on Cloud Build called `lab2-destroy-trigger`
 
-> Note: If you modified the Resource Group name variable at the beginning of Lab 2 you will need to provide the correct Resource Group name.
+2. Use similar settings to the trigger created previously, except set the Included files filter to `lab_2/destroy.txt`, leave the Ignored files filter blank. For the Build Configuration, set the Cloud Build configuration file to `lab_2/cloudbuild-destroy-lab2.yaml`. Click create to finish creating the trigger.
+
+3. Go to the triggers page and select Run trigger to manually execute the build, which will destroy all the resources created.
 
 ---
 
@@ -145,51 +140,12 @@ az group delete --name rg-lab-2
 
 Links to more learning:
 
-- **GitHub Actions Variables**: [https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables)
-- **Azure Resource Manager Deployments**: [https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview)
-- **ARM Templates**: [https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)
-- **ARM Template Copy Element**: [https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/copy-resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/copy-resources)
-- **Azure Virtual Network**: [https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
-- **Azure Virtual Machines**: [https://docs.microsoft.com/en-us/azure/virtual-machines/linux/overview](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/overview)
-- **Azure Load Balancer**: [https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
-- **Azure Virtual Machine Quotas**: [https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-machines-limits](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-machines-limits)
+- **Managing Infrastructure as code**: [https://cloud.google.com/solutions/managing-infrastructure-as-code](https://cloud.google.com/solutions/managing-infrastructure-as-code)
+- **Substituting Cloud Build variable values**: [https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values)
+- **Terraform on Google Cloud**: [https://cloud.google.com/community/tutorials/getting-started-on-gcp-with-terraform](https://cloud.google.com/community/tutorials/getting-started-on-gcp-with-terraform)
+- **Google Cloud VPC**: [https://cloud.google.com/solutions/best-practices-vpc-design](https://cloud.google.com/solutions/best-practices-vpc-design)
+- **Google Cloud Virtual Machines**: [https://cloud.google.com/compute/docs/instances](https://cloud.google.com/compute/docs/instances)
+- **Google Cloud Load Balancer**: [https://cloud.google.com/load-balancing/docs/network](https://cloud.google.com/load-balancing/docs/network)
+- **Managed Instance Groups**: [https://cloud.google.com/compute/docs/instance-groups/working-with-managed-instances](https://cloud.google.com/compute/docs/instance-groups/working-with-managed-instances)
 
 ![constructocat](images/constructocat2.jpg)
-
-## Optional Scale Up Resources
-
-This exercise will go through scaling up the deployed Virtual Machines to a different SKU with more vCPU and Memory resources.
-
-> NOTE: If you are using an Azure Free Account you may need to upgrade to a Pay-As-You-Go account in order to perform these steps. Azure has been limiting the vCPU Core quotes and denying quota increase requests on Free accounts. Completing this optional step is not required, and will not prevent you from completing the remaining labs.
-
-| VM SKU       | CPU Cores | Memory | Data Disks |
-| ------------ | --------- | ------ | ---------- |
-| Standard_B1s | 1         | 1 GB   | 2          |
-| Standard_B2s | 2         | 4 GB   | 4          |
-
-1. Navigate to **Code** and browse to the `lab_2/iaas.deploy.json` file.
-
-2. Click the pencil icon to edit the file. Change the `webVmSize` parameter by modifying the VM SKU size for `defaultValue` to be `Standard_B2s`
-
-```json
-"webVmSize": {
-    "type": "string",
-    "defaultValue": "Standard_B2s"
-},
-```
-
-> Note: JSON has very strict formatting rules. When modifying the code be sure that you have correct quotation marks, commas, and brackets in the correct locations or your ARM deployment may fail.
-
-3. Enter a commit message and click `Commit changes`
-
-> ![lab_2_workflow_02](images/lab_2_workflow_02.png)
-
-4. Navigate to **Actions** and you should see your workflow executing.
-
-> ![lab_2_ workflow_03](images/lab_2_workflow_03.png)
-
-5. Once the workflow is completed we can open the Azure Portal and confirm the virtual machines have been reconfigured to the new size.
-
-> ![lab_2_workflow_05](images/lab_2_workflow_05.png)
-
----
