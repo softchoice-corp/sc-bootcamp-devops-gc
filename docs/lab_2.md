@@ -101,7 +101,7 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
 
-5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_2/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_1` folder should trigger a build. Enter `lab_2/destroy.txt` under 'Ignored files filter (glob)' to indicate that the file should not trigger a build.
+5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_2/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_2/` folder should trigger a build. Enter `lab_2/destroy.txt` under 'Ignored files filter (glob)' to indicate that the file should not trigger a build.
 
 6. Enter `lab_2/cloudbuild-lab2.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
 
