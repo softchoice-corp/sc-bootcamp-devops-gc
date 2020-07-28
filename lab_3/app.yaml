@@ -1,0 +1,5 @@
+runtime: nodejs12
+
+handlers:
+  - url: /.*
+    secure: always
