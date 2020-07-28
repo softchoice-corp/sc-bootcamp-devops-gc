@@ -15,7 +15,7 @@
  */
 
 variable region {
-  default = "us-central1"
+  default = "us-central"
 }
 
 variable project_id {
