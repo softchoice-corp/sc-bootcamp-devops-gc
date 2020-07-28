@@ -65,27 +65,39 @@ By default, Terraform stores state locally in a file named `terraform.tfstate`. 
 
 ```bash
 PROJECT_ID=$(gcloud config get-value project)
-gsutil mb gs://${PROJECT_ID}-tfstate
+RAND=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
+gsutil mb gs://${PROJECT_ID}-${RAND}-tfstate
 ```
 
-3. Enable Object Versioning to keep the history of your deployments using the following command:
+3. Note the output for the `gsutil` command. The value between the `gs://` and `/` will be used in the `backend.tf` configuration file.
+
+Example output:
+
+```
+kyle_lee@cloudshell:~ (sc-gc-devops-bootcamp)$ gsutil mb gs://${PROJECT_ID}-${RAND}-tfstate
+Creating gs://sc-gc-devops-bootcamp-37n0lbypedb8e-tfstate/...
+```
+
+4. Enable Object Versioning to keep the history of your deployments using the following command:
 
 ```bash
-gsutil versioning set on gs://${PROJECT_ID}-tfstate
+gsutil versioning set on gs://${PROJECT_ID}-${RAND}-tfstate
 ```
 
-4. In GitHub, edit the `backend.tf` file and update the `bucket` to the Cloud Storage bucket that was just created (E.g., `sc-gc-devops-bootcamp-tfstate`).
+5. In GitHub, edit the `backend.tf` file and update the `bucket` to the Cloud Storage bucket that was just created (E.g., `sc-gc-devops-bootcamp-tfstate`).
+
+Example:
 
 ```json
 terraform {
   backend "gcs" {
-    bucket = "sc-gc-devops-bootcamp-tfstate"
+    bucket = "sc-gc-devops-bootcamp-37n0lbypedb8e-tfstate"
     prefix = "terraform/bootstrap/state"
   }
 }
 ```
 
-5. Commit the changes.
+6. Commit the changes.
 
 ---
 
