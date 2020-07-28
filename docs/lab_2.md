@@ -84,7 +84,7 @@ Creating gs://sc-gc-devops-bootcamp-37n0lbypedb8e-tfstate/...
 gsutil versioning set on gs://${PROJECT_ID}-${RAND}-tfstate
 ```
 
-5. In GitHub, edit the `backend.tf` file and update the `bucket` to the Cloud Storage bucket that was just created (E.g., `sc-gc-devops-bootcamp-tfstate`).
+5. In GitHub, edit the `backend.tf` file and update the `bucket` to the Cloud Storage bucket that was just created (E.g., `sc-gc-devops-bootcamp-37n0lbypedb8e-tfstate`).
 
 Example:
 
