@@ -21,10 +21,10 @@
 
 output "app_engine_code_bucket" {
   description = "App Engine bucket storage"
-  value       = webapp.code_bucket
+  value       = google_app_engine_application.webapp.code_bucket
 }
 
 output "app_hostname" {
   description = "Application hostname"
-  value       = webapp.default_hostname
+  value       = google_app_engine_application.webapp.default_hostname
 }
