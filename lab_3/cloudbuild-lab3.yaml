@@ -46,11 +46,13 @@ steps:
 
 - id: 'npm install'
   name: 'node'
+  dir: 'lab_3/app'
   entrypoint: 'npm'
   args: ['install']
 
 - id: 'npm test'
   name: 'node'
+  dir: 'lab_3/app'
   entrypoint: 'npm'
   args: ['test']
 
