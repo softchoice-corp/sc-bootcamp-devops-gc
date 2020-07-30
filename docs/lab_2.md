@@ -132,7 +132,7 @@ The terraform files defines several Google Cloud resources to deploy:
 - Managed instance group with two instances in the same region.
 - Network TCP load balancer.
 
-> ![lab_2_diagram](images/lab_2_diagram.png)
+> ![lab2-diagram](images/lab2-diagram.png)
 
 3. Once the workflow has completed you can access the [Google Cloud Console](https://console.cloud.google.com/) and view the resources the workflow created. In the [Google Cloud Console](https://console.cloud.google.com/) click the top left &#9776; hamburger menu, navigate to Compute Engine to view the running instances. Navigate to VPC Network -> VPC Networks to see the VPCs created. Navigating to Network Services -> Load Balancing will display the load balancers created.
 
@@ -188,4 +188,4 @@ Links to more learning:
 - **Google Cloud Load Balancer**: [https://cloud.google.com/load-balancing/docs/network](https://cloud.google.com/load-balancing/docs/network)
 - **Managed Instance Groups**: [https://cloud.google.com/compute/docs/instance-groups/working-with-managed-instances](https://cloud.google.com/compute/docs/instance-groups/working-with-managed-instances)
 
-![constructocat](images/constructocat2.jpg)
+![lab2-constructocat](images/lab2-constructocat2.jpg)
