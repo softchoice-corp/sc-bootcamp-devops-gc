@@ -1,8 +1,8 @@
-# DevOps Bootcamp - Google Cloud + GitHub + Terraform + Cloud Build
+# DevOps Bootcamp - Google Cloud + GitHub + Terraform 
 
 ## Overview
 
-The individual labs below will walk through configuring Google Cloud and the Google Cloud Build GitHub App to deploy and update basic infrastructure using Terraform. If you run into issues please review the FAQ.
+The individual labs below will walk through configuring Google Cloud and the Cloud Build GitHub App to deploy and update basic infrastructure using Terraform. If you run into issues please review the FAQ.
 
 [**Frequently Asked Questions**](docs/faq.md)
 
@@ -33,9 +33,9 @@ The first lab will get us up and running with Google Cloud and connecting to Git
 
 ---
 
-## Lab 2 - Deploy Infrastructure
+## Lab 2 - Store Terraform state & Deploy Infrastructure
 
-The second lab will deploy IaaS components consisting of VPCs, Virtual Machines, Load Balancer using Terraform executed via a Cloud Build build.
+The second lab will deploy IaaS components consisting of VPCs, Virtual Machines, Load Balancer using Terraform executed via Cloud Build.
 
 - Update Cloud Build service account permissions
 - Create Cloud Storage bucket for Terraform state
@@ -48,7 +48,7 @@ The second lab will deploy IaaS components consisting of VPCs, Virtual Machines,
 
 ---
 
-## Lab 3 - Deploy Web App
+## Lab 3 - Deploy to App Engine
 
 The third lab will deploy PaaS components consisting of App Engine, website code, using gcloud commands executed via Cloud Build.
 
