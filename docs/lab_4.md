@@ -11,7 +11,7 @@
 
 The fourth lab is a demo of how we can quickly deploy 75 servers to Google Cloud.
 
-> Note: Executing this lab will result in **75** n1-standard-1 vm's being deployed in your environment. If you have not requested a vCPU quota increase this may not complete successfully.
+> Note: Executing this lab will result in **75** `n1-standard-1` vm's being deployed in your environment. If you have not made the appropriate quota increase requests, this may not complete successfully. A workaround to deploy a smaller number of VMs will be provided in the section below.
 
 > ![lab_4_quota](images/lab_4_gcp_quota.jpg)
 
@@ -33,10 +33,11 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 6. Enter `lab_4/cloudbuild-lab4.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
 
-7. Click Create to finish creating the trigger on Cloud Build.
+7. Under 'Substitution variables', Enter `_NODE_COUNT` as the variable with the value `75`. The value will be the number of virtual machines that gets deployed. If no quota increases were requested, set the value as `4` to avoid quota errors.
+
+8. Click Create to finish creating the trigger on Cloud Build.
 
 > ![lab4-cloud-build-create-trigger](images/lab4-cloud-build-create-trigger.gif)
-
 
 ---
 
@@ -44,7 +45,20 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 Trigger a terraform deployment to create 75 vm's via GitHub and Cloud Build
 
-1. Navigate to **Code**, and browse to the `lab_4/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
+1. In GitHub, edit the `lab_4/backend.tf` file and update the `bucket` value with the Google Storage bucket name (E.g., `sc-gc-devops-bootcamp-284719-tfstate`) created in lab 2. You can copy the modified backend file from `lab_2/backend.tf`. Commit the changes.
+
+Example:
+
+```json
+terraform {
+  backend "gcs" {
+    bucket = "sc-gc-devops-bootcamp-284719-tfstate"
+    prefix = "terraform/bootstrap/state"
+  }
+}
+```
+
+2. Navigate to **Code**, and browse to the `lab_4/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
 ---
 
@@ -54,7 +68,7 @@ To mimimize billing usage in your subscription we can remove all of the resource
 
 1. Create a new trigger on Cloud Build called `lab4-destroy-trigger`.
 
-2. Use similar settings to the trigger created previously, except set the Included files filter to `lab_4/destroy.txt`, leave the Ignored files filter blank. For the Build Configuration, set the Cloud Build configuration file to `lab_4/cloudbuild-destroy-lab4.yaml`. Click create to finish creating the trigger.
+2. Use similar settings to the trigger created previously, except set the Included files filter to `lab_4/destroy.txt`, leave the Ignored files filter blank. For the Build Configuration, set the Cloud Build configuration file to `lab_4/cloudbuild-destroy-lab4.yaml`. Under 'Substitution variables', Enter `_NODE_COUNT` as the variable with the value `75`. Click create to finish creating the trigger.
 
 > ![lab4-cloud-build-create-destroy-trigger](images/lab4-cloud-build-create-destroy-trigger.gif)
 
