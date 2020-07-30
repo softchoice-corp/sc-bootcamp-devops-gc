@@ -1,8 +1,9 @@
 # Lab 3 - GitHub Actions
 
-- [Create Azure Web App](#Create-Azure-Web-App)
-- [Configure GitHub Actions](#Configure-GitHub-Actions)
-- [Run GitHub Actions](#Run-GitHub-Actions)
+- [Create Google App Engine Instance](#Create-Google-App-Engine-Instance)
+- [Enable App Engine Admin API](#Enable-App-Admin-API)
+- [Configure GitHub App Trigger](#Configure-GitHub-App-Trigger)
+- [Run Cloud Build](#Run-Cloud-Build)
 - [Continuous Deployment of Changes](#Continuous-Deployment-of-Changes)
 - [Unit Testing](#Unit-Testing)
 
@@ -10,51 +11,61 @@
 
 ## Overview
 
-The third lab will deploy a NodeJS Web App using GitHub Actions.
+The third lab will deploy a NodeJS Web Application using Google Cloud Build.
 
-> Note: Lab 3 uses the same secret `AZURE_CREDENTIALS` as in Lab 1
+## Create Google App Engine Application
 
-## Create Azure Web App
+Create the Google App Engine Application that the pipeline will deploy to.
 
-Create the Azure Web App that the pipeline will deploy to. Open Azure Cloud Shell and run the following PowerShell cmdlets:
+1. Open Cloud Shell
 
-1. Create the Resource Group `rg-lab-3`
+> TODO: copy picture from lab 3
 
-```powershell
-New-AzResourceGroup -Name 'rg-lab-3' -Location 'eastus2'
+2. In Cloud Shell, set the `PROJECT_ID` shell variable
+
+```bash
+PROJECT_ID=$(gcloud config get-value project)
 ```
 
-2. Create the Azure Web App
+3. Create the Google App Engine Application
 
-```powershell
-New-AzResourceGroupDeployment -ResourceGroupName 'rg-lab-3' -TemplateUri https://raw.githubusercontent.com/softchoice-corp/DevOpsBootcamp/master/lab_3/webapps.deploy.json -Verbose
+```bash
+gcloud app create --region=us-central
 ```
 
-The ARM template deployment will create a unique name for the Web App and return it on the console under `Outputs`. Make a note of the `uniqueWebAppName` value, we will use it later to configure our GitHub Actions pipeline.
+That's it for the application creation! The application has a default service that we will deploy to and host our site.
 
-## Configure GitHub Actions
+## Enable App Engine Admin API
 
-1. Browse to the `workflows-templates/lab_3_webapps.yaml` file and copy all of the text.
+Since we will be using Cloud Build to deploy our application, we need to enable the `App Engine Admin API`. This will allow other services, such as Cloud Build, to administer the application.
 
-2. Navigate to **Actions** and click **New Workflow**. If prompted to start with a sample workflow click the `Set up a workflow yourself` button in the top right.
+To enable the `App Engine Admin API`, run the following in Cloud Shell
 
-3. Replace all of the sample workflow code in the editor by pasting all the code you copied from `workflows-templates/lab_3_webapps.yaml`.
-
-4. Modify the `AZURE_WEBAPP_NAME` variable to use the name of the Web App you created in the previous step.
-
-```yaml
-env:
-  AZURE_WEBAPP_NAME: azure-webapp-unique-name
-  AZURE_WEBAPP_PACKAGE_PATH: ./lab_3/app
+```bash
+gcloud services enable appengine.googleapis.com
 ```
 
-5. GitHub Actions files must be saved in a directory in your repo named `.github/workflows/`. The directory structure `.github/workflows/` should already exist in the path, name your workflow file `lab_3_webapps.yaml` and click `Start Commit`.
+## Configure GitHub App Trigger
 
-6. Add a short commit message and click `Commit new file`.
+We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project.
+
+1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
+
+2. Similar to Lab 1 and Lab 2, enter a name (E.g., `lab3-trigger`) and description (E.g., `trigger for lab 3`) for your trigger.
+
+3. Under Event, select Push to a new branch.
+
+4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
+
+5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_3/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_3/` folder should trigger a build. Enter `lab_3/destroy.txt` under 'Ignored files filter (glob)' to indicate that the file should not trigger a build.
+
+6. Enter `lab_3/cloudbuild-lab3.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
+
+7. Click Create to finish creating the trigger on Cloud Build.
 
 ---
 
-## Run GitHub Actions
+## Run Cloud Build
 
 The workflow we just created is triggered by changes made to the files in the `lab_3/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
 

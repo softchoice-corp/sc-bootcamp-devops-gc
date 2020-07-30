@@ -9,40 +9,40 @@ steps:
       echo "$BRANCH_NAME"
       echo "***********************"
 
-- id: 'tf init'
-  name: 'hashicorp/terraform:0.12.24'
-  entrypoint: 'sh'
-  args:
-    - '-c'
-    - |
-      cd lab_3
-      terraform init
+# - id: 'tf init'
+#   name: 'hashicorp/terraform:0.12.24'
+#   entrypoint: 'sh'
+#   args:
+#     - '-c'
+#     - |
+#       cd lab_3
+#       terraform init
 
-# [START tf-plan]
-- id: 'tf plan'
-  name: 'hashicorp/terraform:0.12.24'
-  entrypoint: 'sh'
-  args:
-    - '-c'
-    - |
-      cd lab_3
-      terraform plan
-  env:
-    - 'TF_VAR_project_id=$PROJECT_ID'
-# [END tf-plan]
+# # [START tf-plan]
+# - id: 'tf plan'
+#   name: 'hashicorp/terraform:0.12.24'
+#   entrypoint: 'sh'
+#   args:
+#     - '-c'
+#     - |
+#       cd lab_3
+#       terraform plan
+#   env:
+#     - 'TF_VAR_project_id=$PROJECT_ID'
+# # [END tf-plan]
 
-# [START tf-apply]
-- id: 'tf apply'
-  name: 'hashicorp/terraform:0.12.24'
-  entrypoint: 'sh'
-  args:
-    - '-c'
-    - |
-      cd lab_3
-      terraform apply -auto-approve
-  env:
-    - 'TF_VAR_project_id=$PROJECT_ID'
-# [END tf-apply]
+# # [START tf-apply]
+# - id: 'tf apply'
+#   name: 'hashicorp/terraform:0.12.24'
+#   entrypoint: 'sh'
+#   args:
+#     - '-c'
+#     - |
+#       cd lab_3
+#       terraform apply -auto-approve
+#   env:
+#     - 'TF_VAR_project_id=$PROJECT_ID'
+# # [END tf-apply]
 
 - id: 'npm install'
   name: 'node'
