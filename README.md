@@ -1,8 +1,8 @@
-# DevOps Bootcamp - GitHub Actions + Azure
+# DevOps Bootcamp - Google Cloud + GitHub + Terraform + Cloud Build
 
 ## Overview
 
-The individual labs below will walk through configuring GitHub Actions and Azure to deploy and update basic infrastructure. If you run into issues please review the FAQ.
+The individual labs below will walk through configuring Google Cloud and the Google Cloud Build GitHub App to deploy and update basic infrastructure using Terraform. If you run into issues please review the FAQ.
 
 [**Frequently Asked Questions**](docs/faq.md)
 
@@ -10,10 +10,10 @@ The individual labs below will walk through configuring GitHub Actions and Azure
 
 ## Lab 0 - Prerequisites
 
-The pre-requisites lab will walk through getting access to GitHub and Azure
+The pre-requisites lab will walk through getting access to GitHub and Google Cloud
 
 - GitHub Account
-- Azure Free Account
+- Google Cloud Free Account
 
 [**Start Lab 0 - Prerequsites**](docs/lab_0.md)
 
@@ -21,13 +21,13 @@ The pre-requisites lab will walk through getting access to GitHub and Azure
 
 ## Lab 1 - Connectivity
 
-The first lab will get us up and running with GitHub Actions and connecting to Azure.
+The first lab will get us up and running with Google Cloud and connecting to GitHub via the Google Cloud GitHub App.
 
 - Create Repo from Template
-- Create Azure Service Principal
-- Create GitHub Credential Variable
-- Configure GitHub Actions
-- Run GitHub Actions
+- Create Project on Google Cloud
+- Enable Cloud Build and Install GitHub App
+- Configure GitHub App Triggers
+- Run Cloud Build
 
 [**Start Lab 1 - Connectivity**](docs/lab_1.md)
 
@@ -35,10 +35,12 @@ The first lab will get us up and running with GitHub Actions and connecting to A
 
 ## Lab 2 - Deploy Infrastructure
 
-The second lab will deploy IaaS components consisting of Virtual Networking, Virtual Machines, Load Balancer using an Azure Resource Manager Template via a GitHub Actions CI/CD pipeline.
+The second lab will deploy IaaS components consisting of VPCs, Virtual Machines, Load Balancer using Terraform executed via a Cloud Build build.
 
-- Configure GitHub Actions
-- Run GitHub Actions
+- Update Cloud Build service account permissions
+- Create Cloud Storage bucket for Terraform state
+- Configure GitHub App Triggers
+- Run Cloud Build
 - Scale Out Resources
 - Clean Up Resources
 
@@ -48,11 +50,12 @@ The second lab will deploy IaaS components consisting of Virtual Networking, Vir
 
 ## Lab 3 - Deploy Web App
 
-The third lab will deploy PaaS components consisting of App Service, Web App, website code, using an Azure Resource Manager Template via a GitHub Actions CI/CD pipeline.
+The third lab will deploy PaaS components consisting of App Engine, website code, using gcloud commands executed via Cloud Build.
 
-- Create Azure Web App
-- Configure GitHub Actions
-- Run GitHub Actions
+- Create Google App Engine Instance
+- Enable App Engine Admin API
+- Configure GitHub App Trigger
+- Run Cloud Build
 - Continuous Deployment of Changes
 - Unit Testing
 
@@ -62,7 +65,7 @@ The third lab will deploy PaaS components consisting of App Service, Web App, we
 
 ## Lab 4 - CIO Challenge
 
-The fourth lab is intended for one of the lab facilitators to run as a demo, not for each attendee to deploy in their lab environment due to the amount of infrastructure which is deployed. If you deploy this lab please be aware of subscription quota limitations, and cost considerations.
+The fourth lab is intended for one of the lab facilitators to run as a demo, not for each attendee to deploy in their lab environment due to the amount of infrastructure which is deployed. If you choose to deploy this lab please be aware of subscription quota limitations, and cost considerations.
 
 - Deploy Solution
 
@@ -70,4 +73,4 @@ The fourth lab is intended for one of the lab facilitators to run as a demo, not
 
 ---
 
-![Microsoft+GitHub](docs/images/microsoft_github.png)
+![Google Cloud+GitHub](docs/images/google_github.png)
