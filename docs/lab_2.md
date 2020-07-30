@@ -1,5 +1,7 @@
 # Lab 2 - IaaS
 
+- [Overview](#Overview)
+- [Enable required Google Cloud APIs](#Enable-required-Google-Cloud-APIs)
 - [Update Cloud Build service account permissions](#Update-Cloud-Build-service-account-permissions)
 - [Create Cloud Storage bucket for Terraform state](#Create-Cloud-Storage-bucket-for-Terraform-state)
 - [Configure GitHub App Triggers](#Configure-GitHub-App-Triggers)
@@ -74,7 +76,7 @@ gsutil mb gs://${PROJECT_ID}-tfstate
 gsutil versioning set on gs://${PROJECT_ID}-tfstate
 ```
 
-5. In GitHub, edit the `backend.tf` file and update the `bucket` value of the `PROJECT_ID` placeholder with the `${PROJECT_ID}` value (E.g., `sc-gc-devops-bootcamp-284719-tfstate`).
+5. In GitHub, edit the `lab_2/backend.tf` file and update the `bucket` value of the `PROJECT_ID` placeholder with the `${PROJECT_ID}` value (E.g., `sc-gc-devops-bootcamp-284719-tfstate`).
 
 Example:
 
