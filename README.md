@@ -15,7 +15,7 @@ The pre-requisites lab will walk through getting access to GitHub and Google Clo
 - GitHub Account
 - Google Cloud Free Account
 
-[**Start Lab 0 - Prerequsites**](docs/lab_0.md)
+[**Start Lab 0 - Prerequisites**](docs/lab_0.md)
 
 ---
 
@@ -44,7 +44,7 @@ The second lab will deploy IaaS components consisting of VPCs, Virtual Machines,
 - Scale Out Resources
 - Clean Up Resources
 
-[**Start Lab 2 - Deploy Infrastructure**](docs/lab_2.md)
+[**Start Lab 2 - Store Terraform state & Deploy Infrastructure**](docs/lab_2.md)
 
 ---
 
@@ -59,7 +59,7 @@ The third lab will deploy PaaS components consisting of App Engine, website code
 - Continuous Deployment of Changes
 - Unit Testing
 
-[**Start Lab 3 - Deploy Web App**](docs/lab_3.md)
+[**Start Lab 3 - Deploy to App Engine**](docs/lab_3.md)
 
 ---
 
