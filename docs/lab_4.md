@@ -13,7 +13,7 @@ The fourth lab is a demo of how we can quickly deploy 75 servers to Google Cloud
 
 > Note: Executing this lab will result in **75** n1-standard-1 vm's being deployed in your environment. If you have not requested a vCPU quota increase this may not complete successfully.
 
-> ![lab_4_quota](images/lab_4_gcp_quota.png)
+> ![lab_4_quota](images/lab_4_gcp_quota.jpg)
 
 ---
 
