@@ -13,6 +13,8 @@
 
 The third lab will deploy a NodeJS Web Application using Google Cloud Build.
 
+> Note that unlike in previous labs, we will not destroy the application. This is due to a limitation in App Engine. The application can be disabled to stop traffic and stop costs incurred by App Engine. However, you can delete a service, except for the `default` service.See [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine) for more information on App Engine.
+
 ## Create Google App Engine Application
 
 Create the Google App Engine Application that the pipeline will deploy to.
@@ -37,7 +39,7 @@ That's it for the application creation! The application has a default service th
 
 ## Enable App Engine Admin API
 
-Since we will be using Cloud Build to deploy our application, we need to enable the `App Engine Admin API`. This will allow other services, such as Cloud Build, to administer the application.
+Since we will be using Cloud Build to deploy our application, we need to enable the `App Engine Admin API`. This will allow other services, such as Cloud Build, to administer on App Engine.
 
 To enable the `App Engine Admin API`, run the following in Cloud Shell
 
