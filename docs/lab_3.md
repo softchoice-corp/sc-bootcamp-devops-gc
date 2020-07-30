@@ -13,15 +13,17 @@
 
 The third lab will deploy a NodeJS Web Application using Google Cloud Build.
 
-> Note that unlike in previous labs, we will not destroy the application. This is due to a limitation in App Engine. The application can be disabled to stop traffic and stop costs incurred by App Engine. However, you can delete a service, except for the `default` service.See [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine) for more information on App Engine.
+> Note that unlike in previous labs, we will not destroy the application. This is due to a limitation in App Engine. The application can be disabled to stop traffic and stop costs incurred by App Engine. However, you can delete a service, except for the `default` service. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine) for more information on App Engine.
 
 ## Create Google App Engine Application
 
 Create the Google App Engine Application that the pipeline will deploy to.
 
-1. Navigate to `App Engine` form the top left menu, it will be under the `Compute` sub-heading. You will notice that there is currently no application and the option to create one is available.
+1. Navigate to `App Engine` form the top left menu, it will be under the `Compute` sub-heading.
 
-> Note that you can use the UI to create the application. However we will use the `gcloud` command to show an alternative for automation.
+You will notice that there is currently no application and the option to create one is available.
+
+> Note that you can use the UI to create the application. However, we will use the `gcloud` command to show an alternative for automation use.
 
 2. Open Cloud Shell
 
@@ -41,21 +43,41 @@ That's it for the application creation! The application has a default service th
 
 Since we will be using Cloud Build to deploy our application, we need to enable the `App Engine Admin API`. This will allow other services, such as Cloud Build, to administer on App Engine.
 
-To enable the `App Engine Admin API`, run the following in Cloud Shell
+> Note that you can use the UI to enable the API. However, we will use the `gcloud` command to show an alternative for automation use.
+
+1. Navigate to `APIs & Services` from the top left menu.
+
+2. Click the **+ Enable APIs and Services** on the top heading.
+
+3. In the search field, enter `App Engine Admin API`. Select it from the populated results.
+
+4. Notice that there is an **Enable** button. If you choose to enable the API through the UI you can skip the succeeding steps.
+
+5. Open Cloud Shell
+
+6. Enable the `App Engine Admin API`
 
 ```bash
 gcloud services enable appengine.googleapis.com
 ```
 
+7. Go back to the API library by clicking the back arrow at the top left.
+
+8. Select the `App Engine Admin API` again from the result list. Notice that the API is now enabled and can be used by Cloud Build.
+
+> ![lab3-enable-app-engine-admin-api](images/lab3-enable-app-engine-admin-api.gif)
+
+> It is important to note that any account which has the `Editor` role, such as the Cloud Build service account, will automatically have permissions to administer App Engine. To follow the standard rule of least privilege, a more appropriate role would be the `App Engine Admin` role, which provides permission to App Engine.
+
 ## Configure GitHub App Trigger
 
-We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project.
+We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project. This is following the same process as Lab 2.
 
 1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
 
 2. Similar to Lab 1 and Lab 2, enter a name (E.g., `lab3-trigger`) and description (E.g., `trigger for lab 3`) for your trigger.
 
-3. Under Event, select Push to a new branch.
+3. Under Event, select `Push to a new branch`.
 
 4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
 
@@ -69,11 +91,19 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 ## Run Cloud Build
 
-The workflow we just created is triggered by changes made to the files in the `lab_2/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
+The workflow we just created is triggered by changes made to the files in the `lab_3/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
 
-1. Navigate to **Code**, and browse to the `lab_2/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
+1. Navigate to **Code**, and browse to the `lab_3/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
-2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab2-trigger name.
+2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab3-trigger name.
+
+The workflow for Lab 3 is going to take a few minutes to execute. While it is running take a look at the application configuration file (E.g., `app/app.yaml`) to see how App Engine will configure environment.
+
+> Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes service is `default` and cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services)
+
+4. Once the Cloud Build pipeline finishes, open a browser window and to to `<Project name>.appspot.com`. Replace `<Project name>` with your project name.
+
+> ![lab3-complete-app-engine-deployment](images/lab3-complete-app-engine-deployment.jpg)
 
 ---
 
