@@ -1,5 +1,6 @@
 # Lab 2 - IaaS
 
+- [Enable required Google Cloud APIs](#Enable-required-Google-Cloud-APIs)
 - [Update Cloud Build service account permissions](#Update-Cloud-Build-service-account-permissions)
 - [Create Cloud Storage bucket for Terraform state](#Create-Cloud-Storage-bucket-for-Terraform-state)
 - [Configure GitHub App Triggers](#Configure-GitHub-App-Triggers)
