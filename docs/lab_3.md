@@ -19,21 +19,21 @@ The third lab will deploy a NodeJS Web Application using Google Cloud Build.
 
 Create the Google App Engine Application that the pipeline will deploy to.
 
-1. Open Cloud Shell
+1. Navigate to `App Engine` form the top left menu, it will be under the `Compute` sub-heading. You will notice that there is currently no application and the option to create one is available.
 
-> TODO: copy picture from lab 3
+> Note that you can use the UI to create the application. However we will use the `gcloud` command to show an alternative for automation.
 
-2. In Cloud Shell, set the `PROJECT_ID` shell variable
-
-```bash
-PROJECT_ID=$(gcloud config get-value project)
-```
+2. Open Cloud Shell
 
 3. Create the Google App Engine Application
 
 ```bash
 gcloud app create --region=us-central
 ```
+
+4. Refresh the page. You will see that your App Engine application has been created.
+
+> ![lab3-create-app-engine-application](images/lab3-create-app-engine-application.gif)
 
 That's it for the application creation! The application has a default service that we will deploy to and host our site.
 
@@ -69,25 +69,17 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 ## Run Cloud Build
 
-The workflow we just created is triggered by changes made to the files in the `lab_3/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
+The workflow we just created is triggered by changes made to the files in the `lab_2/` directory. Let's make a change here to kick off the workflow. The `readme.txt` can be modified by simply adding a new line or some text. The act of committing this change to the `master` branch will instruct GitHub Actions to kick off our workflow.
 
-1. Navigate to **Code**, and browse to the `lab_3/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
+1. Navigate to **Code**, and browse to the `lab_2/readme.txt` file. Click the pencil icon to edit the file, and add a new line. Provide a commit message and commit your change.
 
-2. Navigate to **Actions** and you should see your `Lab_3_WebApp` workflow executing.
-
-3. When the Workflow successfully finishes, Open up a browser and go to `<Azure Web App name>.azurewebsites.net`. Replace `<Azure Web App name>` with the unique name.
-
-![lab_3_workflow_continuous_deployment_00_fullpage](images/lab_3_workflow_continuous_deployment_00_fullpage.jpg)
-
-> Note: It is possible to find the URL in the Workflow's `Deploy to Azure WebApp` task's output
-
-> ![lab_3_workflow_view_application_01_emphasis](images/lab_3_workflow_view_application_01_emphasis.jpg)
+2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab2-trigger name.
 
 ---
 
 ## Continuous Deployment of Changes
 
-> GitHub provides an action on GitHub marketplace to simplify deployments to Azure Web App application called `webapps-deploy`. Go to [https://github.com/marketplace/actions/azure-webapp](https://github.com/marketplace/actions/azure-webapp) for more information.
+We will make some changes to the code and watch the pipeline automatically deploy those changes to the application.
 
 1. Navigate to **Code**, open the `lab_3/app/public` directory and open the `index.html` file.
 
@@ -162,13 +154,11 @@ This demonstrates some of the flexibility of GitHub Action Workflows. Go to [htt
 
 ---
 
-## Clean Up Resources
+## Disable the Application
 
-To mimimize billing usage in your subscription we can remove all of the resources we deployed with GitHub Actions by deleting the Resource Group they are held in. From Azure Cloud Shell run the following command:
+To mimimize billing usage in your project, we can disable the application to reduce costs incurred by the application. Since the application can only be deleted along with the project, disabling it is the best way, unless of course, you would like to delete the project.
 
-```python
-az group delete --name rg-lab-3
-```
+1. From the Google Cloud Console menu, select `App Engine` under `Compute`
 
 ## End of Lab 3
 
