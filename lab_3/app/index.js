@@ -7,7 +7,7 @@ var app = express();
 app.use(express.static("public"));
 
 app.get("/test", (req, res) => {
-  res.status(200).send("Hello, World!");
+  res.status(200).send("Error Text");
 });
 
 module.exports = app.listen(port, () => {
