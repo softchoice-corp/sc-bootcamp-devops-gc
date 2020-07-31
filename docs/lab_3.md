@@ -151,17 +151,17 @@ We have deployed our application successfully due to the defined unit tests pass
 
 1. Navigate to **Code**, open the `lab_3/app/` directory and open the `index.js` file.
 
-> ![lab_3_workflow_unit_testing_01](images/lab_3_workflow_unit_testing_01_edit.jpg)
+> ![lab3-unit-testing-open-index-js](images/lab3-unit-testing-open-index-js.jpg)
 
 2. Change the `Hello, World!` text in the service `/path` response. It can be any misspelling or a completely different text, as long as it is different.
 
-> ![lab_3_workflow_unit_testing_01_highlight](images/lab_3_workflow_unit_testing_01_edit_highlight.jpg)
+> ![lab3-unit-testing-open-index-js-highlighted](images/lab3-unit-testing-open-index-js-highlighted.jpg)
 
-> ![lab_3_workflow_unit_testing_02_edit_errortext_highlight](images/lab_3_workflow_unit_testing_02_edit_errortext_highlight.jpg)
+> ![lab3-unit-testing-open-index-js-error](images/lab3-unit-testing-open-index-js-error.jpg)
 
 3. Enter a commit message and click `Commit changes`.
 
-> ![lab_3_workflow_unit_testing_03](images/lab_3_workflow_unit_testing_03.jpg)
+> ![lab3-unit-testing-commit-error](images/lab3-unit-testing-commit-error.jpg)
 
 4. Navigate to **Actions** to observe the Workflow. Which will fail.
 
