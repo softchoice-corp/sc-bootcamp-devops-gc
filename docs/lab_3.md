@@ -71,7 +71,7 @@ gcloud services enable appengine.googleapis.com
 
 ## Configure GitHub App Trigger
 
-We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project. This is following the same process as Lab 2.
+We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project. This is following a similar process as Lab 2, with the exception of the terraform `destroy.txt` file being ignored.
 
 1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
 
@@ -81,7 +81,7 @@ We will now configure a Cloud Build trigger that will run the terraform commands
 
 4. Under Source, select the repository that was connected earlier (E.g., githubuser/MyDevOpsBootCamp (GitHub App)). Enter `.*` for branch to trigger build on all branches.
 
-5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_3/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_3/` folder should trigger a build. Enter `lab_3/destroy.txt` under 'Ignored files filter (glob)' to indicate that the file should not trigger a build.
+5. Expand the 'Show Included and Ignored File Filters' section and enter `lab_3/**` under 'Included files filter (glob)' to indicate that only changes under the `lab_3/` folder should trigger a build.
 
 6. Enter `lab_3/cloudbuild-lab3.yaml` under 'Cloud Build configuration file (YAML or JSON)'. This configuration file defines the build steps that will be performed when a build is triggered.
 
@@ -101,7 +101,13 @@ The workflow for Lab 3 is going to take a few minutes to execute. While it is ru
 
 > Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes service is `default` and cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services)
 
-4. Once the Cloud Build pipeline finishes, open a browser window and to to `<Project name>.appspot.com`. Replace `<Project name>` with your project name.
+4. Once the build finishes, open a browser window and to to `<Project name>.<Region code>.r.appspot.com`. Replace `<Project name>` with your project name and `<Region code>` in this example is `uc` for `us-central`. It can also be found on the `gcloud app deploy` step of the Cloud Build pipeline
+
+> ![lab3-complete-app-engine-deployment-site-url](images/lab3-complete-app-engine-deployment-site-url.png)
+
+> Note that `<Project name>.appspot.com` will also display the website. However, App Engine is moving away from this URL designation and will make the region required for all new application. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed#region-id) for more information.
+
+Here is how the website you just deployed will look like
 
 > ![lab3-complete-app-engine-deployment](images/lab3-complete-app-engine-deployment.jpg)
 
@@ -115,25 +121,27 @@ We will make some changes to the code and watch the pipeline automatically deplo
 
 2. Find the Octodex image element (`img` tag) identified with the `id` attribute `octodex`.
 
-> ![lab_3_workflow_continuous_deployment_01](images/lab_3_workflow_continuous_deployment_01.jpg)
+> ![lab3-cicd-find-img-tag](images/lab3-cicd-find-img-tag.jpg)
 
-3. Go to [https://octodex.github.com/](https://octodex.github.com/) and copy the address of an Octodex that you like.
+3. Go to [https://octodex.github.com/](https://octodex.github.com/) and copy the image address of an Octodex that you like.
+
+> ![lab3-cicd-octodex-copy-image-address](images/lab3-cicd-octodex-copy-image-address.jpg)
 
 4. Update the `alt` and `src` attribute of the octodex `img` tag with description and copied address, respectively.
 
-> ![lab_3_workflow_continuous_deployment_02](images/lab_3_workflow_continuous_deployment_02.jpg)
+> ![lab3-cicd-update-img](images/lab3-cicd-update-img.jpg)
 
 5. Enter a commit message and click `Commit changes`.
 
-> ![lab_3_workflow_continuous_deployment_03](images/lab_3_workflow_continuous_deployment_03.jpg)
+> ![lab3-commit-img-change](images/lab3-commit-img-change.jpg)
 
-6. Navigate to **Actions** and observe the workflow.
+6.  Navigate to **Cloud Build -> History** and you should see the build executing with the lab3-trigger name
 
-> ![lab_3_workflow_continuous_deployment_04](images/lab_3_workflow_continuous_deployment_04.jpg)
+> ![lab3-cicd-img-update-build-history](images/lab3-cicd-img-update-build-history.jpg)
 
-7. When the workflow finishes executing, open your browser and refresh or go to the `<Azure Web App name>.azurewebsites.net` website to observe the change in the application.
+7. When the build finishes executing, open your browser and refresh or go to the `<Project name>.<Region code>.r.appspot.com` website to observe the change in the application.
 
-> ![lab_3_workflow_continuous_deployment_05_fullpage](images/lab_3_workflow_continuous_deployment_05_fullpage.jpg)
+> ![lab3-cicd-complete-img-update-deployment](images/lab3-cicd-complete-img-update-deployment.jpg)
 
 ---
 
