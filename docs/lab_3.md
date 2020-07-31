@@ -29,7 +29,7 @@ You will notice that there is currently no application and the option to create 
 
 3. Create the Google App Engine Application.
 
-```bash
+```
 gcloud app create --region=us-central
 ```
 
@@ -57,7 +57,7 @@ Since we will be using Cloud Build to deploy our application, we need to enable 
 
 6. Enable the `App Engine Admin API`
 
-```bash
+```
 gcloud services enable appengine.googleapis.com
 ```
 
