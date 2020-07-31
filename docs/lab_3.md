@@ -185,14 +185,26 @@ We have deployed our application successfully due to the defined unit tests pass
 
 To mimimize billing usage in your project, we can disable the application to reduce costs incurred by the application. Since the application can only be deleted along with the project, disabling it is the best way, unless of course, you would like to delete the project.
 
-1. From the Google Cloud Console menu, select `App Engine` under `Compute`
+1. From the Google Cloud Console menu, select `App Engine` under `Compute`.
+
+2. Select **Settings** at the bottom at the bottom of the left menu.
+
+3. Click on the **Disable application** button. Enter the `Project ID` when prompted.
+
+4. Click **Disable**.
+
+> ![lab3-disable-app-engine-application](images/lab3-disable-app-engine-application.gif)
 
 ## End of Lab 3
 
 Links to more learning:
 
-- **Azure App Service**: [https://docs.microsoft.com/en-us/azure/app-service/overview](https://docs.microsoft.com/en-us/azure/app-service/overview)
-- **Node.js in Azure**: [https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs)
+App Engine Overview - https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine
+
+- **App Engine Overview**: [https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine)
+- **App Engine Routing**: [https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed](https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed)
+- **App Engine Configuration (NodeJS)**: [https://cloud.google.com/appengine/docs/standard/nodejs/config/appref](https://cloud.google.com/appengine/docs/standard/nodejs/config/appref)
+- **Cloud Build Configuration**: [https://cloud.google.com/cloud-build/docs/build-config](https://cloud.google.com/cloud-build/docs/build-config)
 - **Unit Testing**: [https://en.wikipedia.org/wiki/Unit_testing](https://en.wikipedia.org/wiki/Unit_testing)
 
 ![topguntocat](images/topguntocat.png)
