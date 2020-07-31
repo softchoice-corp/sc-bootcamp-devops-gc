@@ -37,7 +37,7 @@ gcloud app create --region=us-central
 
 > ![lab3-create-app-engine-application](images/lab3-create-app-engine-application.gif)
 
-Now you can deploy your application to App Engine.
+Now you can deploy your application to App Engine. This creates an isolated environment to deploy and run your application over multiple servers, and does not deploy the application itself.
 
 ## Enable App Engine Admin API
 
@@ -67,7 +67,7 @@ gcloud services enable appengine.googleapis.com
 
 > ![lab3-enable-app-engine-admin-api](images/lab3-enable-app-engine-admin-api.gif)
 
-> It is important to note that any account which has the `Editor` role, such as the Cloud Build service account, will automatically have permissions to administer App Engine. To follow the standard rule of least privilege, a more appropriate role would be the `App Engine Admin` role, which provides permission to App Engine.
+> It is important to note that any account which has the `Editor` role, such as the Cloud Build service account for the labs, will automatically have permissions to administer App Engine. To follow the standard rule of least privilege, a more appropriate role would be the `App Engine Admin` role, which provides permission to App Engine.
 
 ## Configure GitHub App Trigger
 
@@ -101,13 +101,13 @@ The workflow we just created is triggered by changes made to the files in the `l
 
 The workflow for Lab 3 is going to take a few minutes to execute. While it is running take a look at the application configuration file (E.g., `app/app.yaml`) to see how App Engine will configure environment.
 
-> Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes service is `default` and cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services)
+> Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes a default service, properly named `default`, which cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services).
 
-4. Once the build finishes, open a browser window and navigate to to `https://<Project name>.<Region code>.r.appspot.com`. Replace `<Project name>` with your project name and `<Region code>` in this example is `uc` for `us-central`. It can also be found on the `gcloud app deploy` step of the Cloud Build pipeline.
+4. Once the build finishes, open a browser window and navigate to to `https://<Project ID>.<Region code>.r.appspot.com`. Replace `<Project ID>` with your Project ID and `<Region code>` in this example is `uc` for `us-central`. It can also be found on the `gcloud app deploy` step of the Cloud Build pipeline.
 
 > ![lab3-complete-app-engine-deployment-site-url](images/lab3-complete-app-engine-deployment-site-url.png)
 
-> Note that `https://<Project name>.appspot.com` will also display the website. However, App Engine is moving away from this URL designation and will make the region required for all new application. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed#region-id) for more information.
+> Note that `https://<Project ID>.appspot.com` will also display the website. However, App Engine is moving away from this URL designation and will make the region required for all new application. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed#region-id) for more information.
 
 Here is how the website you just deployed will look like
 
