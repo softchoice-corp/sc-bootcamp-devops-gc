@@ -199,8 +199,6 @@ To mimimize billing usage in your project, we can disable the application to red
 
 Links to more learning:
 
-App Engine Overview - https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine
-
 - **App Engine Overview**: [https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine)
 - **App Engine Routing**: [https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed](https://cloud.google.com/appengine/docs/standard/nodejs/how-requests-are-routed)
 - **App Engine Configuration (NodeJS)**: [https://cloud.google.com/appengine/docs/standard/nodejs/config/appref](https://cloud.google.com/appengine/docs/standard/nodejs/config/appref)
