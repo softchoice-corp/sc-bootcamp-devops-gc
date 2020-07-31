@@ -135,7 +135,7 @@ We will make some changes to the code and watch the pipeline automatically deplo
 
 > ![lab3-commit-img-change](images/lab3-commit-img-change.jpg)
 
-6.  Navigate to **Cloud Build -> History** and you should see the build executing with the lab3-trigger name
+6. Navigate to **Cloud Build -> History** and you should see the build executing with the lab3-trigger name
 
 > ![lab3-cicd-img-update-build-history](images/lab3-cicd-img-update-build-history.jpg)
 
@@ -163,32 +163,21 @@ We have deployed our application successfully due to the defined unit tests pass
 
 > ![lab3-unit-testing-commit-error](images/lab3-unit-testing-commit-error.jpg)
 
-4. Navigate to **Actions** to observe the Workflow. Which will fail.
+4. Navigate to **Cloud Build -> History** to observe the build, which will fail.
 
-> ![lab_3_workflow_unit_testing_04](images/lab_3_workflow_unit_testing_04.jpg)
+> ![lab3-unit-testing-commit-error-build-history](images/lab3-unit-testing-commit-error-build-history.jpg)
 
-> ![lab_3_workflow_unit_testing_05](images/lab_3_workflow_unit_testing_05.jpg)
+> ![lab3-unit-testing-commit-error-build-history-fail](images/lab3-unit-testing-commit-error-build-history-fail.jpg)
 
-5. Click on the Workflow to take a look at the more granular tasks the Workflow is running and expand the `npm test` task.
+5. Click on the build to take a look at the more granular steps the build is running and expand the `npm test` step.
 
-> ![lab_3_workflow_unit_testing_06](images/lab_3_workflow_unit_testing_06.jpg)
+> ![lab3-unit-testing-build-history-npm-test-fail-step](images/lab3-unit-testing-build-history-npm-test-fail-step.jpg)
 
-6. Notice that the `API test` unit test failed and the `Deploy to Azure WebApp` was skipped. This is the default behaviour when an error occurs and the workflow is in a failed state.
+6. Notice that the `API test` unit test failed and the `gcloud app deploy` step was skipped. This is the default behaviour when an error occurs and the build is in a failed state.
 
-> ![lab_3_workflow_unit_testing_06_emphasis](images/lab_3_workflow_unit_testing_06_emphasis.jpg)
+> ![lab3-unit-testing-build-history-npm-test-fail-step-highlighted](images/lab3-unit-testing-build-history-npm-test-fail-step-highlighted.jpg)
 
-7. Notice that the `test pass message` was skipped, but the `test fail message` task did execute. This is because the `test fail message` has an `if` conditional execution on Workflow failure.
-
-```yaml
-- name: test fail message
-  if: failure()
-  run: |
-    echo "npm tests failed! please check your code"
-```
-
-This demonstrates some of the flexibility of GitHub Action Workflows. Go to [https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions) for more information on other constructs and Workflow syntax.
-
-8. Fix the Workflow by correcting the `lab_3/app/index.js` file with the proper text and commit the change.
+7. Fix the build by correcting the `lab_3/app/index.js` file with the proper text and commit the change.
 
 ---
 
