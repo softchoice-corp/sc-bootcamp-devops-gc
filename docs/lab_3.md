@@ -25,11 +25,11 @@ You will notice that there is currently no application and the option to create 
 
 > Note that you can use the UI to create the application. However, we will use the `gcloud` command to show an alternative for automation use.
 
-2. Open Cloud Shell.
+2. Open Cloud Shell
 
-3. Create the Google App Engine Application.
+3. Create the Google App Engine Application
 
-```
+```bash
 gcloud app create --region=us-central
 ```
 
@@ -38,6 +38,9 @@ gcloud app create --region=us-central
 > ![lab3-create-app-engine-application](images/lab3-create-app-engine-application.gif)
 
 Now you can deploy your application to App Engine. This creates an isolated environment to deploy and run your application over multiple servers, and does not deploy the application itself.
+That's it for the application creation! The application has a default service that we will deploy to and host our site.
+
+---
 
 ## Enable App Engine Admin API
 
@@ -57,7 +60,7 @@ Since we will be using Cloud Build to deploy our application, we need to enable 
 
 6. Enable the `App Engine Admin API`
 
-```
+```bash
 gcloud services enable appengine.googleapis.com
 ```
 
@@ -68,6 +71,8 @@ gcloud services enable appengine.googleapis.com
 > ![lab3-enable-app-engine-admin-api](images/lab3-enable-app-engine-admin-api.gif)
 
 > It is important to note that any account which has the `Editor` role, such as the Cloud Build service account for the labs, will automatically have permissions to administer App Engine. To follow the standard rule of least privilege, a more appropriate role would be the `App Engine Admin` role, which provides permission to App Engine.
+
+---
 
 ## Configure GitHub App Trigger
 
@@ -99,7 +104,7 @@ The workflow we just created is triggered by changes made to the files in the `l
 
 2. Navigate to **Cloud Build -> History** and you should see the build executing with the lab3-trigger name.
 
-The workflow for Lab 3 is going to take a few minutes to execute. While it is running take a look at the application configuration file (E.g., `app/app.yaml`) to see how App Engine will configure environment.
+3. The workflow for Lab 3 is going to take a few minutes to execute. While it is running take a look at the application configuration file (E.g., `app/app.yaml`) to see how App Engine will configure environment.
 
 > Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes a default service, properly named `default`, which cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services).
 

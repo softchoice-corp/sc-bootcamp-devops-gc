@@ -113,4 +113,4 @@ Links to more learning:
 - **Create GitHub App Triggers**: [https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers](https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers)
 - **Create a basic Build Config file**: [https://cloud.google.com/cloud-build/docs/configuring-builds/create-basic-configuration](https://cloud.google.com/cloud-build/docs/configuring-builds/create-basic-configuration)
 
-![professortocat](images/Professortocat_v2.png)
+![lab1-professortocat](images/lab1-professortocat_v2.png)
