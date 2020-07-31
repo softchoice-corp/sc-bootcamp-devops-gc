@@ -1,0 +1,26 @@
+steps:
+  - id: "branch name"
+    name: "alpine"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        echo "***********************"
+        echo "$BRANCH_NAME"
+        echo "***********************"
+
+  - id: "npm install"
+    name: "node"
+    dir: "lab_3/app"
+    entrypoint: "npm"
+    args: ["install"]
+
+  - id: "npm test"
+    name: "node"
+    dir: "lab_3/app"
+    entrypoint: "npm"
+    args: ["test"]
+
+  - id: "gcloud app deploy"
+    name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "lab_3/app"]
