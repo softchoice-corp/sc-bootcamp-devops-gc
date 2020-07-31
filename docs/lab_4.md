@@ -13,7 +13,7 @@ The fourth lab is a demo of how we can quickly deploy 75 servers to Google Cloud
 
 > Note: Executing this lab will result in **75** `n1-standard-1` vm's being deployed in your environment. If you have not made the appropriate quota increase requests, this may not complete successfully. A workaround to deploy a smaller number of VMs will be provided in the section below.
 
-> ![lab_4_quota](images/lab_4_gcp_quota.jpg)
+> ![lab4-gcp-quota](images/lab4-gcp-quota.jpg)
 
 ---
 
@@ -82,4 +82,4 @@ To mimimize billing usage in your subscription we can remove all of the resource
 
 ## End of Lab 4
 
-![cloudcat](images/cloudcat.jpg)
+![lab4-cloudcat](images/lab4-cloudcat.jpg)

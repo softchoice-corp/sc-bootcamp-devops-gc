@@ -63,4 +63,4 @@ Additional Google Cloud Information:
 
 ---
 
-![GitHub+Google Cloud](images/lab_0_gh_gc.png)
+![GitHub+Google Cloud](images/google_github.png)
