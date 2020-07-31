@@ -1,0 +1,23 @@
+steps:
+- id: 'tf init'
+  name: 'hashicorp/terraform:0.12.0'
+  entrypoint: 'sh'
+  args: 
+    - '-c'
+    - |
+      cd lab_4
+      terraform init
+
+# [START tf-destroy]
+- id: 'tf destroy'
+  name: 'hashicorp/terraform:0.12.0'
+  entrypoint: 'sh'
+  args: 
+    - '-c'
+    - | 
+      cd lab_4
+      terraform destroy -auto-approve
+  env:
+    - 'TF_VAR_project_id=$PROJECT_ID'
+    - 'TF_VAR_node_count=$_NODE_COUNT'
+# [END tf-destroy]      
