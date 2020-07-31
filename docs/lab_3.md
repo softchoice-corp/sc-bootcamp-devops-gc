@@ -103,7 +103,7 @@ The workflow for Lab 3 is going to take a few minutes to execute. While it is ru
 
 > Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes a default service, properly named `default`, which cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services).
 
-4. Once the build finishes, open a browser window and navigate to to `https://<Project ID>.<Region code>.r.appspot.com`. Replace `<Project ID>` with your Project ID and `<Region code>` in this example is `uc` for `us-central`. It can also be found on the `gcloud app deploy` step of the Cloud Build pipeline.
+4. Once the build finishes, open a browser window and navigate to to `https://<Project ID>.<Region code>.r.appspot.com`. Replace `<Project ID>` with your Project ID and `<Region code>` in this example, the region code `uc` is for `us-central`. The URL can also be found on the `gcloud app deploy` step of the Cloud Build pipeline.
 
 > ![lab3-complete-app-engine-deployment-site-url](images/lab3-complete-app-engine-deployment-site-url.png)
 
