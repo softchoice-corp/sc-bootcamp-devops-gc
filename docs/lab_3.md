@@ -1,11 +1,12 @@
 # Lab 3 - GitHub Actions
 
-- [Create Google App Engine Instance](#Create-Google-App-Engine-Instance)
-- [Enable App Engine Admin API](#Enable-App-Admin-API)
+- [Create Google App Engine Application](#Create-Google-App-Engine-Application)
+- [Enable App Engine Admin API](#Enable-App-Engine-Admin-API)
 - [Configure GitHub App Trigger](#Configure-GitHub-App-Trigger)
 - [Run Cloud Build](#Run-Cloud-Build)
 - [Continuous Deployment of Changes](#Continuous-Deployment-of-Changes)
 - [Unit Testing](#Unit-Testing)
+- [Disable the Application](#Disable-the-Application)
 
 ---
 
