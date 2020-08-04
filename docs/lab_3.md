@@ -74,7 +74,7 @@ gcloud services enable appengine.googleapis.com
 
 ## Configure GitHub App Trigger
 
-We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project. This is following a similar process as Lab 2, with the exception of the terraform `destroy.txt` file being ignored.
+We will now configure a Cloud Build trigger that will run the build, test, and deployments steps to get your code running on App Engine.
 
 1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
 
