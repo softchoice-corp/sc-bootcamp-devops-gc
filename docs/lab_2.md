@@ -23,7 +23,7 @@ The second lab will deploy IaaS components consisting of a Virtual Private Cloud
 
 > ![lab_2_cloud_shell](images/lab2-cloud-shell.jpg)
 
-2. In Cloud Shell, enable to Compute and IAM APIs with the following commands:
+2. In Cloud Shell, enable the Compute and IAM APIs with the following commands:
 
 ```bash
 gcloud services enable compute.googleapis.com
@@ -137,6 +137,14 @@ The terraform files defines several Google Cloud resources to deploy:
 3. Once the workflow has completed you can access the [Google Cloud Console](https://console.cloud.google.com/) and view the resources the workflow created. In the [Google Cloud Console](https://console.cloud.google.com/) click the top left &#9776; hamburger menu, navigate to Compute Engine to view the running instances. Navigate to VPC Network -> VPC Networks to see the VPCs created. Navigating to Network Services -> Load Balancing will display the load balancers created.
 
 > ![lab2-verify-resources](images/lab2-verify-resources.gif)
+
+4. Retrieve / copy the IP address to the load balancer from the Cloud Build output and paste on a new tab on your browser to view the basic webpage served from the vm instance(s) you just created.
+
+> ![lab2-retrieve-ipaddress](images/lab2-retrieve-ipaddress.jpg)
+
+5. Since the load balancer serves the webpage content from either vm instance in round robin fashion, refreshing the webpage a few times on your browser, you will notice the name of the vm instance backend that serviced the request change.
+
+>![lab2-backend-vm-instance-name](images/lab2-backend-vm-instance-name.jpg)
 
 ---
 

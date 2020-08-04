@@ -11,15 +11,15 @@
 
 ## Overview
 
-The third lab will deploy a NodeJS Web Application using Google Cloud Build.
+The third lab will deploy a NodeJS Web Application to App Engine using Cloud Build.
 
-> Note that unlike in previous labs, we will not destroy the application. This is due to a limitation in App Engine. The application can be disabled to stop traffic and stop costs incurred by App Engine. However, you can delete a service, except for the `default` service. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine) for more information on App Engine.
+> At this time, there is a 1:1 mapping between an application on App Engine and the project it is deployed to and deleting an application is not supported. To stop traffic and stop costs incurred by App Engine, the application can be disabled instead. However, you can delete a service in App Engine, except for the `default` service. See [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine) for more information on App Engine.
 
 ## Create Google App Engine Application
 
 Create the Google App Engine Application that the pipeline will deploy to.
 
-1. Navigate to `App Engine` form the top left menu, it will be under the `Compute` sub-heading.
+1. Navigate to `App Engine` from the top left menu, it will be under the `Compute` sub-heading.
 
 You will notice that there is currently no application and the option to create one is available.
 
@@ -37,8 +37,7 @@ gcloud app create --region=us-central
 
 > ![lab3-create-app-engine-application](images/lab3-create-app-engine-application.gif)
 
-Now you can deploy your application to App Engine. This creates an isolated environment to deploy and run your application over multiple servers, and does not deploy the application itself.
-That's it for the application creation! The application has a default service that we will deploy to and host our site.
+That's it for the application creation! Now you can deploy your web service to App Engine. This action (creating an `application` on App Engine) creates an isolated environment to deploy and run your web service over multiple servers but does not actually deploy it yet. In an App Engine project, you can deploy multiple microservices as separate services, previously known as modules in App Engine. The application we created has a default service that we will deploy to and host our site.
 
 ---
 
@@ -54,7 +53,7 @@ Since we will be using Cloud Build to deploy our application, we need to enable 
 
 3. In the search field, enter `App Engine Admin API`. Select it from the populated results.
 
-4. Notice that there is an **Enable** button. If you choose to enable the API through the UI you can skip the succeeding steps.
+4. Notice that there is an **Enable** button. If you choose to enable the API through the UI you can skip steps 5 - 8.
 
 5. Open Cloud Shell
 
@@ -106,7 +105,7 @@ The workflow we just created is triggered by changes made to the files in the `l
 
 3. The workflow for Lab 3 is going to take a few minutes to execute. While it is running take a look at the application configuration file (E.g., `app/app.yaml`) to see how App Engine will configure environment.
 
-> Although the mapping is 1-to-1 between project and App Engine application. You can create more than one service in the application. The application includes a default service, properly named `default`, which cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services).
+> Although the mapping is 1-to-1 between project and App Engine application, you can create more than one service in the application. The application includes a default service, appropriately named `default`, which cannot be deleted. For more information see the Google documentation [here](https://cloud.google.com/appengine/docs/standard/nodejs/an-overview-of-app-engine#services).
 
 4. Once the build finishes, open a browser window and navigate to to `https://<Project ID>.<Region code>.r.appspot.com`. Replace `<Project ID>` with your Project ID and `<Region code>` in this example, the region code `uc` is for `us-central`. The URL can also be found on the `gcloud app deploy` step of the Cloud Build pipeline.
 
