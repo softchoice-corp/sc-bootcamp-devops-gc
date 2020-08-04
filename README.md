@@ -1,4 +1,4 @@
-# DevOps Bootcamp - Google Cloud + GitHub + Terraform 
+# DevOps Bootcamp - Google Cloud + GitHub + Terraform
 
 ## Overview
 
@@ -52,12 +52,13 @@ The second lab will deploy IaaS components consisting of VPCs, Virtual Machines,
 
 The third lab will deploy PaaS components consisting of App Engine, website code, using gcloud commands executed via Cloud Build.
 
-- Create Google App Engine Instance
+- Create Google App Engine Application
 - Enable App Engine Admin API
 - Configure GitHub App Trigger
 - Run Cloud Build
 - Continuous Deployment of Changes
 - Unit Testing
+- Disable the Application
 
 [**Start Lab 3 - Deploy to App Engine**](docs/lab_3.md)
 
