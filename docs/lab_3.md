@@ -1,11 +1,12 @@
 # Lab 3 - GitHub Actions
 
-- [Create Google App Engine Instance](#Create-Google-App-Engine-Instance)
-- [Enable App Engine Admin API](#Enable-App-Admin-API)
+- [Create Google App Engine Application](#Create-Google-App-Engine-Application)
+- [Enable App Engine Admin API](#Enable-App-Engine-Admin-API)
 - [Configure GitHub App Trigger](#Configure-GitHub-App-Trigger)
 - [Run Cloud Build](#Run-Cloud-Build)
 - [Continuous Deployment of Changes](#Continuous-Deployment-of-Changes)
 - [Unit Testing](#Unit-Testing)
+- [Disable the Application](#Disable-the-Application)
 
 ---
 
@@ -25,9 +26,9 @@ You will notice that there is currently no application and the option to create 
 
 > Note that you can use the UI to create the application. However, we will use the `gcloud` command to show an alternative for automation use.
 
-2. Open Cloud Shell
+2. Open Cloud Shell.
 
-3. Create the Google App Engine Application
+3. Create the Google App Engine Application.
 
 ```bash
 gcloud app create --region=us-central
@@ -71,11 +72,9 @@ gcloud services enable appengine.googleapis.com
 
 > It is important to note that any account which has the `Editor` role, such as the Cloud Build service account for the labs, will automatically have permissions to administer App Engine. To follow the standard rule of least privilege, a more appropriate role would be the `App Engine Admin` role, which provides permission to App Engine.
 
----
-
 ## Configure GitHub App Trigger
 
-We will now configure a Cloud Build trigger that will run the terraform commands to deploy the networking and compute resources in this project. This is following a similar process as Lab 2, with the exception of the terraform `destroy.txt` file being ignored.
+We will now configure a Cloud Build trigger that will run the build, test, and deployments steps to get your code running on App Engine.
 
 1. Open the **Triggers** page in the [Google Cloud Console](https://console.cloud.google.com/) and click **Create Trigger**
 
