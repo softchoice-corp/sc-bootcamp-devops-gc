@@ -10,7 +10,7 @@
 
 ## Create Repo From Template
 
-1. Access the source repo url: [https://github.com/softchoice-corp/sc-gc-devops-bootcamp](https://github.com/softchoice-corp/sc-gc-devops-bootcamp).
+1. Access the source repo url: [https://github.com/softchoice-corp/sc-devops-bootcamp-gc](https://github.com/softchoice-corp/sc-gc-devops-bootcamp).
 
 2. Click the green **Use this template** button. This will copy all of the content from the source repo into a new repo under your GitHub account.
 
